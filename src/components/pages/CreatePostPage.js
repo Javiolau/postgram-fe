@@ -1,8 +1,11 @@
 import React from "react";
-export default () => {
-  return (
-    <div>
-      <h1>This is the Create post Page</h1>
-    </div>
-  );
+
+const CreatePostPage = () => {
+	return (
+		<div>
+			<h1>This is the Create post Page</h1>
+		</div>
+	);
 };
+
+export default CreatePostPage;
