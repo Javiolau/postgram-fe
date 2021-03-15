@@ -23,7 +23,7 @@ const FormPage = (props) => {
 
 	return (
 		<MDBContainer>
-			<MDBRow className='d-flex justify-content-center'>
+			<MDBRow className='d-flex justify-content-center '>
 				<MDBCol md='6'>
 					<form>
 						<p className='h4 text-center mb-4'>Sign up</p>
