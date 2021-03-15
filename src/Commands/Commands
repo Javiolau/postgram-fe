@@ -1,0 +1,34 @@
+#INITIAL SETUP
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/reaxster/postgram.git
+git push -u origin main
+
+#CLONE
+git clone https://github.com/reaxster/postgram.git
+
+#PULL
+git pull https://github.com/reaxster/postgram.git
+
+#PUSHING
+git status #Archivos no Salvados
+git add . #Añade todos los Archivos para salvar
+git commit -m "Mensage del cambio que se hiso"
+git push -u origin yourbranch
+
+#GIT UTIL
+git branch #muentra el branck que estas usando
+git branch branchname #creas un branch nuevo
+git switch branchname #cambia el branch que estas usando
+
+#Links Utils
+https://mdbootstrap.com/docs/react/
+https://getbootstrap.com/docs/4.0/utilities/flex/
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+#UPDATING BRANCH WITH MAIN
+git fetch #Fetch mode
+git rebase origin/main #Pull from main
+https://stackoverflow.com/questions/3876977/update-git-branches-from-master #Link to article

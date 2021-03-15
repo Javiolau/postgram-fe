@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -35,4 +36,13 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.mainBG {
+  background: #616161;
+}
+
+.Footer {
+  position: sticky;
+  top: 100%;
 }
