@@ -26,7 +26,9 @@ function PostInputForm(props) {
 	const [isPostInputForm, toogleisPostInputForm] = useToggle(false);
 	const [imageLink, setImageLink, resetImageLink] = useInputState("");
 	const [linkk, setLinkk, resetLinkk] = useInputState("");
-	const [time, setTime] = useInputState(getDateMMDDYYYY());
+	// const [time, setTime] = useInputState(getDateMMDDYYYY());
+
+	const time = getDateMMDDYYYY();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

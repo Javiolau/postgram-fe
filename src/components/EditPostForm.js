@@ -2,7 +2,7 @@ import React from "react";
 import { MDBBtn } from "mdbreact";
 import useInputState from "../hooks/useInputState";
 import "./components.css";
-import useToggle from "../hooks/useToggle";
+// import useToggle from "../hooks/useToggle";
 // import { getDateMMDDYYYY } from "../util/DateUtil";
 
 function EditPostForm(props) {
@@ -19,15 +19,15 @@ function EditPostForm(props) {
 	const [linkk, setTitle, resetTitle] = useInputState(props.data.linkk);
 
 	//TODO:This will be retrieved from the routes
-	const [username, setusername] = useInputState(props.data.username);
-	const [time, setTime] = useInputState(props.data.time);
+	// const [username, setusername] = useInputState(props.data.username);
+	// const [time, setTime] = useInputState(props.data.time);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		props.editPost(props.data.key, {
 			postData,
-			username,
-			time,
+			username: props.data.username,
+			time: props.data.time,
 			imageLink,
 			linkk,
 		});
@@ -42,8 +42,8 @@ function EditPostForm(props) {
 		<div className=''>
 			<div className='jumbotron p-1'>
 				<div className='px-1 d-flex justify-content-between'>
-					<h6>@USERNAME: {username}</h6>
-					<h6>@TIME: {time}</h6>
+					<h6>@USERNAME: {props.data.username}</h6>
+					<h6>@TIME: {props.data.time}</h6>
 				</div>
 
 				<hr />
