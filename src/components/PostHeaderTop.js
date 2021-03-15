@@ -14,7 +14,7 @@ function PostHeaderForm(props) {
 							border: "2px solid white",
 						}}
 						src={profilePicture}
-						alt='Here goes the profile picture'
+						alt=''
 					/>
 				</div>
 				<div
