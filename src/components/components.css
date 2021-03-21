@@ -19,7 +19,7 @@
 
 .iconPost {
   font-size: 25px;
-  color: white;
+  color: #f6f6f6;
 }
 
 .iconPostActive {
@@ -29,5 +29,5 @@
 
 .iconPost:hover {
   font-size: 30px;
-  color: red;
+  color: #ff5d5d;
 }

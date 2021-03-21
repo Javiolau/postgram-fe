@@ -9,9 +9,9 @@ export default () => {
 
 import React, { useContext } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
-import useInputState from "../hooks/useInputState";
+import useInputState from "../../hooks/useInputState";
 import axios from "axios";
-import { AuthContext } from "../context/useAuthContext";
+import { AuthContext } from "../../context/useAuthContext";
 
 const LoginForm = (props) => {
 	const auth = useContext(AuthContext);

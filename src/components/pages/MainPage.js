@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
-import PostInputForm from "../PostInputForm";
+import PostInputForm from "../post/PostInputForm";
 import { uuid } from "uuidv4";
-import Post from "../Post";
+import Post from "../post/Post";
 // import axios from "axios";
 
 //TODO: Complete the route calls

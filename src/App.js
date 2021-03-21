@@ -5,8 +5,8 @@ import SignupPage from "./components/pages/SignupPage";
 import MainPage from "./components/pages/MainPage";
 import LoginPage from "./components/pages/LoginPage";
 import ProfilePage from "./components/pages/ProfilePage";
-import Navbar from "./components/Navbar";
-import FooterPage from "./components/FooterPage";
+import Navbar from "./components/navigation/Navbar";
+import FooterPage from "./components/navigation/FooterPage";
 
 import { AuthContext } from "./context/useAuthContext";
 import { useAuthHook } from "./hooks/useAuthHook";
