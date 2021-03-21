@@ -14,6 +14,7 @@ import EditPostForm from "./EditPostForm";
 import PostHeaderTop from "./PostHeaderTop";
 import PostInput from "./PostInput";
 import axios from "axios";
+import useInputState from "../../hooks/useInputState";
 const Post = (props) => {
   const [isEditing, toogle] = useToggle(false);
 
@@ -21,21 +22,16 @@ const Post = (props) => {
   /*  const postLikes = async () => {
         asdasdasdasdasdasd
   }*/
-
-  const patchData = async () => {
-    try {
-      const res = axios.put("URL", {});
-    } catch (err) {
-      alert(err);
-    }
-  };
+  const [img, updateImg] = useInputState(props.data.userImage);
+  const [body, updateBody] = useInputState(props.data.body);
 
   const [likes, updateLikes] = useState({
-    like: props.data.like,
+    like: props.data.likeCount,
     isActive: false,
   });
+
   const [dislikes, updateDislikes] = useState({
-    dislike: props.data.dislike,
+    dislike: props.data.dislikeCount,
     isActive: false,
   });
 
@@ -67,17 +63,45 @@ const Post = (props) => {
   }
 
   function handleUpdate(e) {
-    //TODO: handle uipdates done to the project
-    toggleIsEdit();
     e.preventDefault();
-    //patchData();
-    alert("ITS WORKING BALSERAA!!");
+    let updateData = props.data;
+    updateData.body = body;
+    updateData.userImage = img;
+
+    async function update() {
+      try {
+        const res = await axios.patch(
+          process.env.REACT_APP_BACKEND_URL + "/update/" + props.data.postId,
+          updateData
+        );
+        alert("POST WAS UPDATED SUCCESSFULLY");
+      } catch (err) {
+        alert("ERROR ON UPDATING POST");
+      }
+    }
+    update();
+  }
+
+  function handleDelete(e) {
+    e.preventDefault();
+    async function deletePost() {
+      try {
+        const res = await axios.delete(
+          process.env.REACT_APP_BACKEND_URL + "/delete/" + props.data.postId
+        );
+        alert("POST WAS DELETED SUCCESSFULLY");
+        console.log(res);
+      } catch (err) {
+        alert("ERROR ON DELETING POST");
+      }
+    }
+    deletePost();
   }
 
   /*
-   * profilePicture
    * Nombre
    * Username
+   * profilePicture
    * Time
    * Text
    * photo
@@ -93,54 +117,60 @@ const Post = (props) => {
       toogleEdit={toogle}
     />
   ) : (
-    <MDBCard className="postBG">
-      <div className="p-2 d-flex flex-row test">
+    <MDBCard className="postBG my-4">
+      <div className="p-2 d-flex flex-row">
         <PostHeaderTop
-          profilePicture={props.data.profilePicture}
-          username={props.data.username}
-          name={props.data.name}
-          time={props.data.time}
+          profilePicture={props.user.imageUrl}
+          username={props.user.handle}
+          time={new Date(props.data.createdAt).toLocaleString()}
         />
-        {!isEdit && (
+        <div className="d-flex flex-column justify-content-between">
+          {!isEdit && (
+            <MDBIcon
+              className="fas fa-cog iconPost"
+              size="2x"
+              onClick={toggleIsEdit}
+            />
+          )}
+          {isEdit && (
+            <MDBIcon
+              className="fas fa-check iconPost"
+              size="2x"
+              onClick={handleUpdate}
+            />
+          )}
           <MDBIcon
-            className="fas fa-cog iconPost"
+            className="fas fa-trash iconPost"
             size="2x"
-            onClick={toggleIsEdit}
+            onClick={handleDelete}
           />
-        )}
-        {isEdit && (
-          <MDBIcon
-            className="fas fa-check iconPost"
-            size="2x"
-            onClick={handleUpdate}
-          />
-        )}
+        </div>
       </div>
+      <hr />
       <MDBCardBody>
         {!isEdit && (
           <MDBCardImage
             className="img-fluid"
             style={{ width: "100%", height: "18rem" }}
-            src={props.data.imageLink}
+            src={img}
             waves
           />
         )}
         {isEdit && (
           <PostInput
             placeholder="Image Link"
-            value={props.data.imageLink}
-            //onChange={setImageLink}
+            value={img}
+            onChange={updateImg}
             icon="fas fa-camera"
           />
         )}
-        {!isEdit && <p className="white-text">{props.data.postData}</p>}
+        {!isEdit && <p className="white-text">{body}</p>}
         {isEdit && (
           <textarea
-            value={props.data.postData}
-            //onChange={createPostData}
+            value={body}
+            onChange={updateBody}
             margin="normal"
             type="textarea"
-            //placeholder="Enter Your Post here"
             rows={10}
             className="w-100"
           />

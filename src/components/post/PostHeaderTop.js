@@ -18,11 +18,10 @@ function PostHeaderForm(props) {
           />
         </div>
         <div
-          className="d-flex flex-column justify-content-center"
+          className="d-flex flex-column justify-content-between"
           style={{ textAlign: "left" }}
         >
           <h6>@USERNAME: {username}</h6>
-          <h6>NAME: {name}</h6>
           <h6>@TIME: {time}</h6>
         </div>
       </div>
