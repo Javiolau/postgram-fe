@@ -25,14 +25,14 @@ function App() {
           <LoginPage />
         </Route>
 
-        <Route path="/">
-          <Redirect to="/login" />
+        <Route exact path="/">
+          <MainPage />
         </Route>
       </div>
     </Switch>
   );
 
-  if (!token)
+  if (!!token)
     authRoutes = (
       <Switch>
         <div className="App">
@@ -42,12 +42,19 @@ function App() {
           <Route exact path="/">
             <MainPage />
           </Route>
-          <Route exact path="/Profile">
+          <Route exact path="/profile/:handle" component={ProfilePage} />
+
+          <Route exact path="/profile">
             <ProfilePage />
+          </Route>
+
+          <Route exact path="/login">
+            <Redirect to="/profile" />
           </Route>
         </div>
       </Switch>
     );
+
   return (
     <AuthContext.Provider
       value={{

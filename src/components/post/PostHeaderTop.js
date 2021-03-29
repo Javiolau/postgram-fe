@@ -1,4 +1,6 @@
 import React from "react";
+import { MDBLink } from "mdbreact";
+import "../components.css";
 
 function PostHeaderForm(props) {
   const { profilePicture, username, name, time } = props;
@@ -21,8 +23,10 @@ function PostHeaderForm(props) {
           className="d-flex flex-column justify-content-between"
           style={{ textAlign: "left" }}
         >
-          <h6>@USERNAME: {username}</h6>
-          <h6>@TIME: {time}</h6>
+          <MDBLink to={`/profile/${username}`} className="handlePostUserLink">
+            <h6>@{username}</h6>
+          </MDBLink>
+          <h6>{time}</h6>
         </div>
       </div>
     </div>

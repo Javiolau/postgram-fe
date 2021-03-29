@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import AllPost from "../post/AllPost";
 import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
-import PostInputForm from "../post/PostInputForm";
-import axios from "axios";
+import UserProfile from "../user profile/UserProfile";
 
-const ProfilePage = () => {
-  const { data, error } = useSWR(
-    process.env.REACT_APP_BACKEND_URL + "/user/thisisatest3222"
+const ProfilePage = (props) => {
+  const userhandle = props.match.params.handle;
+
+  let { data, error } = useSWR(
+    `${process.env.REACT_APP_BACKEND_URL}/user/${userhandle}`
   );
 
-  //const [posts, setPosts] = useState([]);
-
   if (!data || error) return <h4>Loading...</h4>;
+  console.log(data);
 
   if (data && !error) {
     return (
@@ -21,6 +21,7 @@ const ProfilePage = () => {
           <MDBCol md="8" className="">
             <div className="">
               <div>
+                <UserProfile />
                 <h1>This is the Profile Page</h1>
                 <AllPost posts={data.posts} user={data.user} />
               </div>

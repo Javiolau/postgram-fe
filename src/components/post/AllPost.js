@@ -2,12 +2,27 @@ import React from "react";
 import Post from "./Post";
 
 function AllPosts(props) {
-  const { posts, user } = props;
+  const { user, posts } = props;
 
   /* let postsList = ;*/
 
-  return posts.map((post) => (
-    <Post data={post} key={post.postId} user={user} />
+  return posts.map((item) => (
+    <Post
+      data={{
+        body: item.body,
+        dislikeCount: item.dislikeCount,
+        likeCount: item.likeCount,
+        commentCount: item.commentCount,
+        userHandle: item.userHandle,
+        postId: item.postId,
+        createdAt: item.createdAt,
+        userImage: item.userImage,
+        userId: user.userId,
+      }}
+      user={{
+        handle: item.userHandle,
+      }}
+    />
   ));
 }
 
