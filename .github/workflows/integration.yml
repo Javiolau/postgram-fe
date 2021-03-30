@@ -13,6 +13,6 @@ jobs:
       - name: Install Dependencies
         run: yarn
       - name: Build
-        run: yarn build
+        run: CI='' yarn build
       - name: Test
         run: yarn test --watchAll=false
