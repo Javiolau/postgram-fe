@@ -7,13 +7,14 @@ export default () => {
   );
 };*/
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import axios from "axios";
 import { AuthContext } from "../../context/useAuthContext";
 import jwt from "jwt-decode";
 import { Redirect } from "react-router-dom";
+import useSWR from "swr";
 
 const LoginForm = (props) => {
   const auth = useContext(AuthContext);
@@ -39,7 +40,24 @@ const LoginForm = (props) => {
 
         const token = res.data.token;
         const { user_id } = jwt(res.data.token);
-        auth.login(user_id, token);
+
+        if (token) {
+          /* const res2 = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/user/`,
+            {
+              headers: {
+                Authorization: "Bearer " + token, //the token is a variable which holds the token
+              },
+            }
+          );*/
+          console.log("CAME HEREEEEE!!!");
+          //const allUserData = res2.data;
+          // console.log(allUserData);
+          auth.login(user_id, token);
+          resetPassword();
+          resetEmail();
+          return <Redirect to="/" />;
+        }
       }
     } catch (err) {
       //TODO: Refactor Alert for failed login
@@ -51,9 +69,6 @@ const LoginForm = (props) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await login();
-    resetPassword();
-    resetEmail();
-    return <Redirect to="/" />;
   };
 
   return (

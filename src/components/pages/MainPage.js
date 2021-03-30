@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import PostInputForm from "../post/PostInputForm";
 import Post from "../post/Post";
-import axios from "axios";
 import useSWR from "swr";
 import { AuthContext } from "../../context/useAuthContext";
-import useToggle from "../../hooks/useToggle";
 
 //TODO: Complete the route calls
 
 const MainPage = () => {
+  const auth = useContext(AuthContext);
   const { data, error } = useSWR(process.env.REACT_APP_BACKEND_URL + "/posts");
 
   let renderPosts;
@@ -48,7 +47,7 @@ const MainPage = () => {
       <MDBRow>
         <MDBCol md="8" className="">
           <div className="my-5">
-            <PostInputForm />
+            {auth.isLoggedIn && <PostInputForm />}
             {renderPosts}
           </div>
         </MDBCol>
