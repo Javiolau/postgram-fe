@@ -1,18 +1,59 @@
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import CreatePostPage from "./components/pages/CreatePostPage";
 import SignupPage from "./components/pages/SignupPage";
 import MainPage from "./components/pages/MainPage";
 import LoginPage from "./components/pages/LoginPage";
 import ProfilePage from "./components/pages/ProfilePage";
-import Navbar from "./components/Navbar";
-import FooterPage from "./components/FooterPage";
+import Navbar from "./components/navigation/Navbar";
+import FooterPage from "./components/navigation/FooterPage";
 
 import { AuthContext } from "./context/useAuthContext";
 import { useAuthHook } from "./hooks/useAuthHook";
 
 function App() {
   const { token, login, logout, userId } = useAuthHook();
+
+  let authRoutes = (
+    <Switch>
+      <div className="App">
+        <Route exact path="/signup">
+          <SignupPage />
+        </Route>
+
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
+
+        <Route exact path="/">
+          <MainPage />
+        </Route>
+      </div>
+    </Switch>
+  );
+
+  if (!!token)
+    authRoutes = (
+      <Switch>
+        <div className="App">
+          <Route exact path="/createpost">
+            <CreatePostPage />
+          </Route>
+          <Route exact path="/">
+            <MainPage />
+          </Route>
+          <Route exact path="/profile/:handle" component={ProfilePage} />
+
+          <Route exact path="/profile">
+            <ProfilePage />
+          </Route>
+
+          <Route exact path="/login">
+            <Redirect to="/profile" />
+          </Route>
+        </div>
+      </Switch>
+    );
 
   return (
     <AuthContext.Provider
@@ -26,25 +67,7 @@ function App() {
     >
       <div className="mainBG">
         <Navbar />
-        <Switch>
-          <div className="App">
-            <Route exact path="/createpost">
-              <CreatePostPage />
-            </Route>
-            <Route exact path="/signup">
-              <SignupPage />
-            </Route>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
-            <Route exact path="/mainpage">
-              <MainPage />
-            </Route>
-            <Route exact path="/Profile">
-              <ProfilePage />
-            </Route>
-          </div>
-        </Switch>
+        {authRoutes}
         <FooterPage className="Footer" />
       </div>
     </AuthContext.Provider>

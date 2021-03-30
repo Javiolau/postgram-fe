@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SignupForm from "../SignupForm";
+import SignupForm from "../auth/SignupForm";
 import axios from "axios";
 import { Redirect } from "react-router";
 

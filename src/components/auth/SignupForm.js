@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
-import useInputState from "../hooks/useInputState";
+import useInputState from "../../hooks/useInputState";
 // import { useState } from "react";
 
 const FormPage = (props) => {
