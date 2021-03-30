@@ -45,11 +45,11 @@ function App() {
           <Route exact path="/profile/:handle" component={ProfilePage} />
 
           <Route exact path="/profile">
-            <ProfilePage />
+            <MainPage />
           </Route>
 
           <Route exact path="/login">
-            <Redirect to="/profile" />
+            <Redirect to="/" />
           </Route>
         </div>
       </Switch>
