@@ -31,3 +31,12 @@
   font-size: 30px;
   color: #ff5d5d;
 }
+
+.handlePostUserLink {
+  color: white;
+  padding: 0;
+}
+
+.handlePostUserLink:hover {
+  color: #ff8f8f;
+}

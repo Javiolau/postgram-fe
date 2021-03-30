@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MDBIcon } from "mdbreact";
 
 import {
@@ -14,32 +14,33 @@ import EditPostForm from "./EditPostForm";
 import PostHeaderTop from "./PostHeaderTop";
 import PostInput from "./PostInput";
 import axios from "axios";
+import useInputState from "../../hooks/useInputState";
+import { AuthContext } from "../../context/useAuthContext";
+import { Redirect } from "react-router-dom";
+import Reload from "../../util/Reload";
+
 const Post = (props) => {
-  const [isEditing, toogle] = useToggle(false);
+  const auth = useContext(AuthContext);
 
-  //TODO: Update Likes API POST
-  /*  const postLikes = async () => {
-        asdasdasdasdasdasd
-  }*/
+  const [body, updateBody] = useInputState(props.data.body);
+  const [postUserID, updateUserid] = useState(props.data.userId);
+  const [isEdit, toggleIsEdit] = useToggle(false);
 
-  const patchData = async () => {
-    try {
-      const res = axios.put("URL", {});
-    } catch (err) {
-      alert(err);
-    }
-  };
+  const ownPost = auth.userId === props.data.userId;
+  console.log("COMPARING-----------------");
+  console.log("This  is the ID-----------------");
+  console.log(props.data.userId);
+  console.log(props.data);
 
   const [likes, updateLikes] = useState({
-    like: props.data.like,
-    isActive: false,
-  });
-  const [dislikes, updateDislikes] = useState({
-    dislike: props.data.dislike,
+    like: props.data.likeCount,
     isActive: false,
   });
 
-  const [isEdit, toggleIsEdit] = useToggle(false);
+  const [dislikes, updateDislikes] = useState({
+    dislike: props.data.dislikeCount,
+    isActive: false,
+  });
 
   function handleDislike() {
     if (!dislikes.isActive) {
@@ -67,80 +68,95 @@ const Post = (props) => {
   }
 
   function handleUpdate(e) {
-    //TODO: handle uipdates done to the project
-    toggleIsEdit();
     e.preventDefault();
-    //patchData();
-    alert("ITS WORKING BALSERAA!!");
+    let updateData = props.data;
+    updateData.body = body;
+
+    async function update() {
+      try {
+        const res = await axios.patch(
+          process.env.REACT_APP_BACKEND_URL + "/update/" + props.data.postId,
+          updateData,
+          {
+            headers: {
+              Authorization: "Bearer " + auth.token, //the token is a variable which holds the token
+            },
+          }
+        );
+        Reload(true);
+      } catch (err) {
+        alert("ERROR ON UPDATING POST ");
+      }
+    }
+    update();
+    toggleIsEdit();
+    return <Redirect to="/" />;
   }
 
-  /*
-   * profilePicture
-   * Nombre
-   * Username
-   * Time
-   * Text
-   * photo
-   * Link
-   * Like
-   * Dislike*/
+  function handleDelete(e) {
+    e.preventDefault();
+    async function deletePost() {
+      try {
+        const res = await axios.delete(
+          process.env.REACT_APP_BACKEND_URL + "/delete/" + props.data.postId,
+          {
+            headers: {
+              Authorization: "Bearer " + auth.token, //the token is a variable which holds the token
+            },
+          }
+        );
+        Reload(true);
+      } catch (err) {
+        alert("ERROR ON DELETING POST");
+      }
+    }
+    deletePost();
+    return <Redirect to="/" />;
+  }
 
-  return isEditing ? (
-    <EditPostForm
-      data={props.data}
-      removePost={props.removePost}
-      editPost={props.editPost}
-      toogleEdit={toogle}
-    />
-  ) : (
-    <MDBCard className="postBG">
-      <div className="p-2 d-flex flex-row test">
+  return (
+    <MDBCard className="postBG my-4">
+      <div className="p-2 d-flex flex-row">
         <PostHeaderTop
-          profilePicture={props.data.profilePicture}
-          username={props.data.username}
-          name={props.data.name}
-          time={props.data.time}
+          profilePicture={props.data.userImage}
+          username={props.user.handle}
+          time={new Date(props.data.createdAt).toLocaleString()}
         />
-        {!isEdit && (
-          <MDBIcon
-            className="fas fa-cog iconPost"
-            size="2x"
-            onClick={toggleIsEdit}
-          />
-        )}
-        {isEdit && (
-          <MDBIcon
-            className="fas fa-check iconPost"
-            size="2x"
-            onClick={handleUpdate}
-          />
-        )}
+        <div className="d-flex flex-column justify-content-between">
+          {!isEdit && ownPost && (
+            <MDBIcon
+              className="fas fa-cog iconPost"
+              size="2x"
+              onClick={toggleIsEdit}
+            />
+          )}
+          {isEdit && ownPost && (
+            <MDBIcon
+              className="fas fa-check iconPost"
+              size="2x"
+              onClick={handleUpdate}
+            />
+          )}
+          {ownPost && (
+            <MDBIcon
+              className="fas fa-trash iconPost"
+              size="2x"
+              onClick={handleDelete}
+            />
+          )}
+        </div>
       </div>
+
+      <hr />
+
       <MDBCardBody>
-        {!isEdit && (
-          <MDBCardImage
-            className="img-fluid"
-            style={{ width: "100%", height: "18rem" }}
-            src={props.data.imageLink}
-            waves
-          />
-        )}
-        {isEdit && (
-          <PostInput
-            placeholder="Image Link"
-            value={props.data.imageLink}
-            //onChange={setImageLink}
-            icon="fas fa-camera"
-          />
-        )}
-        {!isEdit && <p className="white-text">{props.data.postData}</p>}
+        {!isEdit && <p className="white-text">{body}</p>}
         {isEdit && (
           <textarea
-            value={props.data.postData}
-            //onChange={createPostData}
+            value={body}
+            onChange={updateBody}
             margin="normal"
             type="textarea"
-            //placeholder="Enter Your Post here"
             rows={10}
             className="w-100"
           />
@@ -148,30 +164,32 @@ const Post = (props) => {
 
         <hr />
       </MDBCardBody>
-      <div className="w-100 d-flex justify-content-center mb-3">
-        <div className="d-flex flex-row justify-content-around left  w-50">
-          <icon
-            className={
-              likes.isActive
-                ? "far fa-thumbs-up iconPostActive"
-                : "far fa-thumbs-up iconPost"
-            }
-            onClick={handleLike}
-          >
-            {likes.like}
-          </icon>
-          <icon
-            className={
-              dislikes.isActive
-                ? "far fa-thumbs-down iconPostActive"
-                : "far fa-thumbs-down iconPost"
-            }
-            onClick={handleDislike}
-          >
-            {dislikes.dislike}
-          </icon>
+      {auth.isLoggedIn && (
+        <div className="w-100 d-flex justify-content-center mb-3">
+          <div className="d-flex flex-row justify-content-around left  w-50">
+            <icon
+              className={
+                likes.isActive
+                  ? "far fa-thumbs-up iconPostActive"
+                  : "far fa-thumbs-up iconPost"
+              }
+              onClick={handleLike}
+            >
+              {likes.like}
+            </icon>
+            <icon
+              className={
+                dislikes.isActive
+                  ? "far fa-thumbs-down iconPostActive"
+                  : "far fa-thumbs-down iconPost"
+              }
+              onClick={handleDislike}
+            >
+              {dislikes.dislike}
+            </icon>
+          </div>
         </div>
-      </div>
+      )}
     </MDBCard>
   );
 };

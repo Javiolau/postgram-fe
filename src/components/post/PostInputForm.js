@@ -7,43 +7,46 @@ import { getDateMMDDYYYY } from "../../util/DateUtil";
 import { AuthContext } from "../../context/useAuthContext";
 import PostInput from "./PostInput";
 import PostHeaderTop from "./PostHeaderTop";
+import axios from "axios";
+import { Redirect } from "react-router-dom";
+import Reload from "../../util/Reload";
 
 function PostInputForm(props) {
-  let { name, username, profilePicture } = useContext(AuthContext);
+  let { username, profilePicture, token } = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   //TODO: Add Async Post]
   username = "USERNAME";
-  name = "NAME";
   profilePicture =
     "https://cdn.britannica.com/s:800x450,c:crop/43/172743-138-545C299D/overview-Barack-Obama.jpg";
 
-  /* profilePicture
-   * Nombre
-   * Username
-   * Time
-   * */
-
   const [postData, createPostData, resetPostData] = useInputState("");
   const [isPostInputForm, toogleisPostInputForm] = useToggle(false);
-  const [imageLink, setImageLink, resetImageLink] = useInputState("");
-  const [linkk, setLinkk, resetLinkk] = useInputState("");
-  // const [time, setTime] = useInputState(getDateMMDDYYYY());
 
   const time = getDateMMDDYYYY();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    props.addPost({
-      postData,
-      username,
-      time,
-      imageLink,
-      link: linkk,
-      name,
-      profilePicture,
-    });
+
+    (async () => {
+      try {
+        const res = await axios.post(
+          process.env.REACT_APP_BACKEND_URL + "/post/",
+          {
+            body: postData,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + auth.token, //the token is a variable which holds the token
+            },
+          }
+        );
+      } catch (err) {
+        alert(err);
+      }
+    })();
+    Reload(true);
     resetPostData();
-    resetImageLink();
-    resetLinkk();
+    toogleisPostInputForm();
   };
 
   return (
@@ -64,17 +67,12 @@ function PostInputForm(props) {
           <PostHeaderTop
             profilePicture={profilePicture}
             username={username}
-            name={name}
+            name={username}
             time={time}
           />
 
           <hr />
-          <PostInput
-            placeholder="Link To Post"
-            value={linkk}
-            onChange={setLinkk}
-            icon="fas fa-align-center"
-          />
+
           <textarea
             value={postData}
             onChange={createPostData}
@@ -84,12 +82,7 @@ function PostInputForm(props) {
             rows={5}
             className="w-100"
           />
-          <PostInput
-            placeholder="Image Link"
-            value={imageLink}
-            onChange={setImageLink}
-            icon="fas fa-camera"
-          />
+
           <div className="d-flex">
             <MDBBtn className="w-100" onClick={handleSubmit} color="primary">
               Post
