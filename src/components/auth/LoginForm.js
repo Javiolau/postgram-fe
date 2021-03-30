@@ -1,12 +1,3 @@
-/*import React from "react";
-export default () => {
-  return (
-    <div>
-      <h1>This is the Login Page</h1>
-    </div>
-  );
-};*/
-
 import React, { useContext, useEffect } from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
