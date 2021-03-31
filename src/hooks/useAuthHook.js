@@ -4,12 +4,14 @@ let logoutTimer;
 export const useAuthHook = () => {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
+  const [userInfo, setUserInfo] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
 
   const login = useCallback(
-    (uid, token, expirationDate) => {
+    (uid, token, userInfo, expirationDate) => {
       setToken(token);
       setUserId(uid);
+      setUserInfo(userInfo);
 
       const tokenExpirationDate =
         expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
@@ -20,6 +22,7 @@ export const useAuthHook = () => {
         JSON.stringify({
           userId: uid,
           token: token,
+          userInfo,
           expiration: tokenExpirationDate.toISOString(),
         })
       );
@@ -33,6 +36,7 @@ export const useAuthHook = () => {
     setToken(null);
     setTokenExpirationDate(null);
     setUserId(null);
+    setUserInfo(null);
     localStorage.removeItem("userData");
   }, []);
 
@@ -58,10 +62,11 @@ export const useAuthHook = () => {
       login(
         storedData.userId,
         storedData.token,
+        storedData.userInfo,
         new Date(storedData.expiration)
       );
     }
   }, [login]);
 
-  return { token, login, logout, userId };
+  return { token, login, logout, userId, userInfo };
 };

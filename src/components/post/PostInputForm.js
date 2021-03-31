@@ -5,19 +5,13 @@ import "../components.css";
 import useToggle from "../../hooks/useToggle";
 import { getDateMMDDYYYY } from "../../util/DateUtil";
 import { AuthContext } from "../../context/useAuthContext";
-import PostInput from "./PostInput";
 import PostHeaderTop from "./PostHeaderTop";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import Reload from "../../util/Reload";
 
 function PostInputForm(props) {
-  let { username, profilePicture, token } = useContext(AuthContext);
   const auth = useContext(AuthContext);
-  //TODO: Add Async Post]
-  username = "USERNAME";
-  profilePicture =
-    "https://cdn.britannica.com/s:800x450,c:crop/43/172743-138-545C299D/overview-Barack-Obama.jpg";
+  const { imageUrl, handle } = auth.userInfo;
 
   const [postData, createPostData, resetPostData] = useInputState("");
   const [isPostInputForm, toogleisPostInputForm] = useToggle(false);
@@ -36,7 +30,7 @@ function PostInputForm(props) {
           },
           {
             headers: {
-              Authorization: "Bearer " + auth.token, //the token is a variable which holds the token
+              Authorization: "Bearer " + auth.token,
             },
           }
         );
@@ -65,9 +59,9 @@ function PostInputForm(props) {
       {isPostInputForm && (
         <div className="jumbotron p-1 postBG createPost">
           <PostHeaderTop
-            profilePicture={profilePicture}
-            username={username}
-            name={username}
+            profilePicture={imageUrl}
+            username={handle}
+            name={handle}
             time={time}
           />
 

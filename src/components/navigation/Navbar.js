@@ -28,6 +28,7 @@ const Navbar = () => {
   const handleLogout = () => {
     auth.logout();
     setState(false);
+    alert("You have successfully logged out");
     return <Redirect to="/login" />;
   };
 
@@ -58,19 +59,21 @@ const Navbar = () => {
               </MDBNavLink>
             </MDBNavItem>
           )}
-
-          {auth.isLoggedIn && (
+          {auth.isLoggedIn && auth.userInfo.handle && auth.userInfo.firstName && (
             <MDBNavItem>
-              <MDBNavLink onClick={handleLogout} to="/login">
-                Logout
+              <MDBNavLink
+                onClick={handleClick}
+                to={`/profile/${auth.userInfo.handle}`}
+              >
+                <strong>{auth.userInfo.firstName}</strong>
               </MDBNavLink>
             </MDBNavItem>
           )}
 
           {auth.isLoggedIn && (
             <MDBNavItem>
-              <MDBNavLink onClick={handleClick} to="/profile">
-                Profile
+              <MDBNavLink onClick={handleLogout} to="/login">
+                Logout
               </MDBNavLink>
             </MDBNavItem>
           )}
