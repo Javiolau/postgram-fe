@@ -8,7 +8,7 @@ import {
 	MDBCardText,
 } from "mdbreact";
 
-const SectionProfile = () => {
+const SectionHomeProfile = () => {
 	const auth = useContext(AuthContext);
 
 	return (
@@ -29,4 +29,4 @@ const SectionProfile = () => {
 	);
 };
 
-export default SectionProfile;
+export default SectionHomeProfile;

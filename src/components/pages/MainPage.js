@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBRow, MDBCol } from "mdbreact";
 import PostInputForm from "../post/PostInputForm";
 import Post from "../post/Post";
 import useSWR from "swr";
 import { AuthContext } from "../../context/useAuthContext";
-import SectionProfile from "./SectionProfile";
+import SectionHomeProfile from "./SectionHomeProfile";
+import NewsSection from "./NewsSection";
 
 //TODO: Complete the route calls
 
@@ -47,7 +48,7 @@ const MainPage = () => {
 		<>
 			<MDBRow className='d-flex justify-content-between'>
 				<MDBCol md='2' className='my-5 m-3 '>
-					{auth.isLoggedIn && <SectionProfile />}
+					{auth.isLoggedIn && <SectionHomeProfile />}
 				</MDBCol>
 				<MDBCol md='4' className=''>
 					<div className='my-5'>
@@ -57,7 +58,7 @@ const MainPage = () => {
 				</MDBCol>
 				<MDBCol md='3'>
 					<div className='my-5'>
-						<h1>News</h1>
+						<NewsSection />
 					</div>
 				</MDBCol>
 			</MDBRow>

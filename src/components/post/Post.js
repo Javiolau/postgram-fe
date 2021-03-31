@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { MDBIcon } from "mdbreact";
-
 import { MDBCard, MDBCardBody } from "mdbreact";
 import useToggle from "../../hooks/useToggle";
 import PostHeaderTop from "./PostHeaderTop";
@@ -156,7 +155,7 @@ const Post = (props) => {
 						<icon
 							className={
 								likes.isActive
-									? "far fa-thumbs-up iconPostActive"
+									? "fas fa-thumbs-up iconPostActive"
 									: "far fa-thumbs-up iconPost"
 							}
 							onClick={handleLike}>
@@ -165,7 +164,7 @@ const Post = (props) => {
 						<icon
 							className={
 								dislikes.isActive
-									? "far fa-thumbs-down iconPostActive"
+									? "fas fa-thumbs-down iconPostActive"
 									: "far fa-thumbs-down iconPost"
 							}
 							onClick={handleDislike}>
