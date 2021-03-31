@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { MDBIcon } from "mdbreact";
-
 import { MDBCard, MDBCardBody } from "mdbreact";
 import useToggle from "../../hooks/useToggle";
 import PostHeaderTop from "./PostHeaderTop";
@@ -101,7 +100,7 @@ const Post = (props) => {
   }
 
   return (
-    <MDBCard className="postBG my-4">
+    <MDBCard className="postBG">
       <div className="p-2 d-flex flex-row">
         <PostHeaderTop
           profilePicture={props.data.userImage}
@@ -118,7 +117,7 @@ const Post = (props) => {
           )}
           {isEdit && ownPost && (
             <MDBIcon
-              className="fas fa-check iconPost"
+              className="fas fa-check iconPost "
               size="2x"
               onClick={handleUpdate}
             />
@@ -136,7 +135,7 @@ const Post = (props) => {
       <hr />
 
       <MDBCardBody>
-        {!isEdit && <p className="white-text">{body}</p>}
+        {!isEdit && <p className="black-text">{body}</p>}
         {isEdit && (
           <textarea
             value={body}
@@ -147,16 +146,16 @@ const Post = (props) => {
             className="w-100"
           />
         )}
-
         <hr />
       </MDBCardBody>
+
       {auth.isLoggedIn && (
-        <div className="w-100 d-flex justify-content-center mb-3">
+        <div className="w-100 d-flex justify-content-center mb-3 ">
           <div className="d-flex flex-row justify-content-around left  w-50">
             <icon
               className={
                 likes.isActive
-                  ? "far fa-thumbs-up iconPostActive"
+                  ? "fas fa-thumbs-up iconPostActive"
                   : "far fa-thumbs-up iconPost"
               }
               onClick={handleLike}
@@ -166,7 +165,7 @@ const Post = (props) => {
             <icon
               className={
                 dislikes.isActive
-                  ? "far fa-thumbs-down iconPostActive"
+                  ? "fas fa-thumbs-down iconPostActive"
                   : "far fa-thumbs-down iconPost"
               }
               onClick={handleDislike}

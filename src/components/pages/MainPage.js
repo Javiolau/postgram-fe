@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBRow, MDBCol } from "mdbreact";
 import PostInputForm from "../post/PostInputForm";
 import Post from "../post/Post";
 import useSWR from "swr";
 import { AuthContext } from "../../context/useAuthContext";
+import SectionHomeProfile from "./SectionHomeProfile";
+import NewsPage from "./NewsPage";
 
 //TODO: Complete the route calls
 
@@ -15,7 +17,7 @@ const MainPage = () => {
 
   if (data) {
     renderPosts = data.map((item) => (
-      <div key={item.id} className="my-4">
+      <div key={item.id} className="mb-4">
         <Post
           data={{
             body: item.body,
@@ -43,19 +45,24 @@ const MainPage = () => {
   }
 
   return (
-    <MDBContainer>
-      <MDBRow>
-        <MDBCol md="8" className="">
-          <div className="my-5">
+    <div>
+      <MDBRow className="d-flex justify-content-between my-5">
+        <MDBCol size="2" className="my-5">
+          {auth.isLoggedIn && <SectionHomeProfile />}
+        </MDBCol>
+
+        <MDBCol size="4" className="">
+          <div className="">
             {auth.isLoggedIn && <PostInputForm />}
             {renderPosts}
           </div>
         </MDBCol>
-        <MDBCol md="4">
-          <h1>Active User on this section </h1>
+
+        <MDBCol size="4">
+          <NewsPage />
         </MDBCol>
       </MDBRow>
-    </MDBContainer>
+    </div>
   );
 };
 export default MainPage;

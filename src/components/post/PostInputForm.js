@@ -46,9 +46,9 @@ function PostInputForm(props) {
   return (
     <div>
       {!isPostInputForm && (
-        <div className=" ">
+        <div>
           <MDBBtn
-            className="maxWH mx-0"
+            className="maxWH mx-0 borders black-text mb-4"
             color="red"
             onClick={toogleisPostInputForm}
           >
@@ -57,7 +57,7 @@ function PostInputForm(props) {
         </div>
       )}
       {isPostInputForm && (
-        <div className="jumbotron p-1 postBG createPost">
+        <div className="jumbotron postBG createPost mb-4">
           <PostHeaderTop
             profilePicture={imageUrl}
             username={handle}
