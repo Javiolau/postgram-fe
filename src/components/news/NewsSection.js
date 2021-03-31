@@ -71,7 +71,7 @@ const NewsSection = (props) => {
             {published_at ? published_at : new Date().toLocaleString()}
           </time>
           <h6 className="">
-            <strong>Category:</strong> {category ? category : "Unknown"}
+            <strong>Category: </strong> {category ? category : "Unknown"}
           </h6>
         </div>
       </MDBCard>
