@@ -1,44 +1,59 @@
 /***********GLOBAL STYLES ***********/
 
 .test {
-  border: 1px red solid;
+	border: 1px red solid;
 }
 
 .maxWH {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
+}
+
+.borders {
+	padding: 20px;
+	border-radius: 25px;
 }
 
 .postBG {
-  background: #322626;
+	background: #dddcdc;
+	/* background: #322626; */
+	padding: 20px;
+	border-radius: 25px;
 }
 
 /*background: #424242;*/
 
-.PostHeaderTop {
-  color: white;
+.textColor {
+	/* PostHeaderTop */
+	color: black;
 }
 
 .iconPost {
-  font-size: 25px;
-  color: #f6f6f6;
+	font-size: 20px;
+	color: #f16363;
 }
 
 .iconPostActive {
-  color: red;
-  font-size: 25px;
+	color: #f16363;
+	font-size: 25px;
 }
 
 .iconPost:hover {
-  font-size: 30px;
-  color: #ff5d5d;
+	font-size: 30px;
+	color: #ff5d5d;
 }
 
 .handlePostUserLink {
-  color: white;
-  padding: 0;
+	padding: 0;
 }
 
 .handlePostUserLink:hover {
-  color: #ff8f8f;
+	color: #ff8f8f;
+}
+
+.cardProfile > div {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	display: flex;
 }
