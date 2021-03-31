@@ -7,7 +7,7 @@ function PostHeaderForm(props) {
 	return (
 		<div className='d-flex flex-row textColor w-100'>
 			<div className='d-flex flex-row w-100'>
-				<div className='mr-3'>
+				<div className='mr-3 waves-effect'>
 					<img
 						style={{
 							width: "5rem",
@@ -23,7 +23,7 @@ function PostHeaderForm(props) {
 					style={{ textAlign: "left" }}>
 					<MDBLink
 						to={`/profile/${username}`}
-						className='handlePostUserLink textColor'>
+						className='handlePostUserLink blue-text'>
 						<h6>@{username}</h6>
 					</MDBLink>
 					<h6>{time}</h6>

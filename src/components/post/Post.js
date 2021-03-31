@@ -108,7 +108,7 @@ const Post = (props) => {
 					username={props.user.handle}
 					time={new Date(props.data.createdAt).toLocaleString()}
 				/>
-				<div className='d-flex flex-column justify-content-between '>
+				<div className='d-flex flex-column justify-content-between'>
 					{!isEdit && ownPost && (
 						<MDBIcon
 							className='fas fa-cog iconPost'

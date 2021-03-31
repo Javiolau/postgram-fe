@@ -4,6 +4,7 @@ import PostInputForm from "../post/PostInputForm";
 import Post from "../post/Post";
 import useSWR from "swr";
 import { AuthContext } from "../../context/useAuthContext";
+import SectionProfile from "./SectionProfile";
 
 //TODO: Complete the route calls
 
@@ -43,19 +44,24 @@ const MainPage = () => {
 	}
 
 	return (
-		<MDBContainer>
+		<>
 			<MDBRow>
-				<MDBCol md='8' className=''>
+				<MDBCol md='2' className='my-5 mx-3'>
+					{auth.isLoggedIn && <SectionProfile />}
+				</MDBCol>
+				<MDBCol md='5' className=''>
 					<div className='my-5'>
 						{auth.isLoggedIn && <PostInputForm />}
 						{renderPosts}
 					</div>
 				</MDBCol>
 				<MDBCol md='4'>
-					<h1>Active User on this section </h1>
+					<div className='my-5'>
+						<h1>News</h1>
+					</div>
 				</MDBCol>
 			</MDBRow>
-		</MDBContainer>
+		</>
 	);
 };
 export default MainPage;

@@ -9,8 +9,13 @@
 	height: 100%;
 }
 
+.borders {
+	padding: 20px;
+	border-radius: 25px;
+}
+
 .postBG {
-	background: #e2dfdf;
+	background: #dddcdc;
 	/* background: #322626; */
 	padding: 20px;
 	border-radius: 25px;
