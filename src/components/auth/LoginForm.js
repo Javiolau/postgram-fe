@@ -5,7 +5,6 @@ import axios from "axios";
 import { AuthContext } from "../../context/useAuthContext";
 import jwt from "jwt-decode";
 import { Redirect } from "react-router-dom";
-import useSWR from "swr";
 
 const LoginForm = (props) => {
   const auth = useContext(AuthContext);
@@ -24,42 +23,33 @@ const LoginForm = (props) => {
       );
 
       if (res.status === 200) {
-        console.log("------------------ RES.DATA--------------");
-        console.log(res.data.token);
-        console.log("------------------ RES.DATA.TOKEN--------------");
-        console.log(res.data);
-
         const token = res.data.token;
         const { user_id } = jwt(res.data.token);
 
         if (token) {
-          /* const res2 = await axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/user/`,
+          const res2 = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/user`,
             {
               headers: {
                 Authorization: "Bearer " + token, //the token is a variable which holds the token
               },
             }
-          );*/
-          console.log("CAME HEREEEEE!!!");
-          //const allUserData = res2.data;
-          // console.log(allUserData);
-          auth.login(user_id, token);
-          resetPassword();
-          resetEmail();
-          return <Redirect to="/" />;
+          );
+          const userInfo = res2.data.credentials;
+          auth.login(user_id, token, userInfo);
         }
       }
     } catch (err) {
-      //TODO: Refactor Alert for failed login
-      console.log("ERROR ON LOGIN");
-      console.log(err);
+      alert("ERROR ON LOGIN");
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     await login();
+    resetPassword();
+    resetEmail();
+    return <Redirect to="/" />;
   };
 
   return (

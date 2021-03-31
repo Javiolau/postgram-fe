@@ -3,7 +3,7 @@ import { MDBLink } from "mdbreact";
 import "../components.css";
 
 function PostHeaderForm(props) {
-  const { profilePicture, username, name, time } = props;
+  const { profilePicture, username, time } = props;
   return (
     <div className="d-flex flex-row PostHeaderTop w-100">
       <div className="d-flex flex-row  w-100">

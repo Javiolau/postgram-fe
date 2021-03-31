@@ -1,18 +1,9 @@
 import React, { useContext, useState } from "react";
 import { MDBIcon } from "mdbreact";
 
-import {
-  // MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  // MDBCardTitle,
-  // MDBCardText,
-} from "mdbreact";
+import { MDBCard, MDBCardBody } from "mdbreact";
 import useToggle from "../../hooks/useToggle";
-import EditPostForm from "./EditPostForm";
 import PostHeaderTop from "./PostHeaderTop";
-import PostInput from "./PostInput";
 import axios from "axios";
 import useInputState from "../../hooks/useInputState";
 import { AuthContext } from "../../context/useAuthContext";
@@ -23,14 +14,9 @@ const Post = (props) => {
   const auth = useContext(AuthContext);
 
   const [body, updateBody] = useInputState(props.data.body);
-  const [postUserID, updateUserid] = useState(props.data.userId);
   const [isEdit, toggleIsEdit] = useToggle(false);
 
   const ownPost = auth.userId === props.data.userId;
-  console.log("COMPARING-----------------");
-  console.log("This  is the ID-----------------");
-  console.log(props.data.userId);
-  console.log(props.data);
 
   const [likes, updateLikes] = useState({
     like: props.data.likeCount,

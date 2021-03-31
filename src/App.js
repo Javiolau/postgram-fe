@@ -12,7 +12,7 @@ import { AuthContext } from "./context/useAuthContext";
 import { useAuthHook } from "./hooks/useAuthHook";
 
 function App() {
-  const { token, login, logout, userId } = useAuthHook();
+  const { token, login, logout, userId, userInfo } = useAuthHook();
 
   let authRoutes = (
     <Switch>
@@ -63,12 +63,13 @@ function App() {
         login: login, //Login function
         logout: logout, //logout function
         userId: userId, //user ID
+        userInfo: userInfo,
       }}
     >
       <div className="mainBG">
         <Navbar />
         {authRoutes}
-        <FooterPage className="Footer" />
+        {!token && <FooterPage className="Footer" />}
       </div>
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import useSWR from "swr";
 import AllPost from "../post/AllPost";
 import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
@@ -12,7 +12,6 @@ const ProfilePage = (props) => {
   );
 
   if (!data || error) return <h4>Loading...</h4>;
-  console.log(data);
 
   if (data && !error) {
     return (

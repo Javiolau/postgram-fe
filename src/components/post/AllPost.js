@@ -4,8 +4,6 @@ import Post from "./Post";
 function AllPosts(props) {
   const { user, posts } = props;
 
-  /* let postsList = ;*/
-
   return posts.map((item) => (
     <Post
       data={{
