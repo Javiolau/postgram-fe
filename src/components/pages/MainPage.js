@@ -45,17 +45,17 @@ const MainPage = () => {
 
 	return (
 		<>
-			<MDBRow>
-				<MDBCol md='2' className='my-5 mx-3'>
+			<MDBRow className='d-flex justify-content-between'>
+				<MDBCol md='2' className='my-5 m-3 '>
 					{auth.isLoggedIn && <SectionProfile />}
 				</MDBCol>
-				<MDBCol md='5' className=''>
+				<MDBCol md='4' className=''>
 					<div className='my-5'>
 						{auth.isLoggedIn && <PostInputForm />}
 						{renderPosts}
 					</div>
 				</MDBCol>
-				<MDBCol md='4'>
+				<MDBCol md='3'>
 					<div className='my-5'>
 						<h1>News</h1>
 					</div>

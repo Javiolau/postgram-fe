@@ -29,8 +29,8 @@
 }
 
 .iconPost {
-	font-size: 25px;
-	color: #f6f6f6;
+	font-size: 20px;
+	color: #f16363;
 }
 
 .iconPostActive {
@@ -49,4 +49,11 @@
 
 .handlePostUserLink:hover {
 	color: #ff8f8f;
+}
+
+.cardProfile > div {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	display: flex;
 }
