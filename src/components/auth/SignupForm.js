@@ -1,12 +1,12 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import { MDBCol, MDBBtn, MDBLink } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import SignupInputField from "./SignupInputField";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import useToggle from "../../hooks/useToggle";
 
-const FormPage = (props) => {
+const FormPage = () => {
   //FORMS STATES
   const [firstName, updateFirstName, resetFirstName] = useInputState("");
   const [lastName, updateLastName, resetLastName] = useInputState("");
@@ -65,75 +65,72 @@ const FormPage = (props) => {
   if (success) return <Redirect to="/login" />;
 
   return (
-    <MDBContainer>
-      <MDBRow className="d-flex justify-content-center ">
-        <MDBCol md="6">
-          <form>
-            <p className="h4 text-center mb-4">Sign up</p>
+    <MDBCol size="12" md="6" lg="4" className="signup my-5">
+      <form>
+        <p className="h4 text-center mb-4">Sign up</p>
 
-            <div>
-              <h6>{firstName}</h6>
-              <h6>{lastName}</h6>
-              <h6>{handle}</h6>
-              <h6>{email}</h6>
-              <h6>{password}</h6>
-              <h6>{confirmPassword}</h6>
-            </div>
+        <div>
+          <h6>{firstName}</h6>
+          <h6>{lastName}</h6>
+          <h6>{handle}</h6>
+          <h6>{email}</h6>
+          <h6>{password}</h6>
+          <h6>{confirmPassword}</h6>
+        </div>
 
-            <SignupInputField
-              label="Enter your First Name"
-              placeholder="Name"
-              value={firstName}
-              onChange={updateFirstName}
-            />
+        <SignupInputField
+          label="Enter your First Name"
+          placeholder="Name"
+          value={firstName}
+          onChange={updateFirstName}
+        />
 
-            <SignupInputField
-              label="Enter your Last Name"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={updateLastName}
-            />
+        <SignupInputField
+          label="Enter your Last Name"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={updateLastName}
+        />
 
-            <SignupInputField
-              label="Enter your @handle"
-              placeholder="@handle"
-              value={handle}
-              onChange={updateHandle}
-            />
+        <SignupInputField
+          label="Enter your @handle"
+          placeholder="@handle"
+          value={handle}
+          onChange={updateHandle}
+        />
 
-            <SignupInputField
-              label="Enter your Email"
-              placeholder="youremail@domain.com"
-              type="email"
-              value={email}
-              onChange={updateEmail}
-            />
+        <SignupInputField
+          label="Enter your Email"
+          placeholder="youremail@domain.com"
+          type="email"
+          value={email}
+          onChange={updateEmail}
+        />
 
-            <SignupInputField
-              label="Enter your Password"
-              placeholder="password"
-              type="password"
-              value={password}
-              onChange={updatePassword}
-            />
+        <SignupInputField
+          label="Enter your Password"
+          placeholder="password"
+          type="password"
+          value={password}
+          onChange={updatePassword}
+        />
 
-            <SignupInputField
-              label="Confirm your Password"
-              placeholder="confirm password"
-              type="password"
-              value={confirmPassword}
-              onChange={updateConfirmPassword}
-            />
+        <SignupInputField
+          label="Confirm your Password"
+          placeholder="confirm password"
+          type="password"
+          value={confirmPassword}
+          onChange={updateConfirmPassword}
+        />
 
-            <div className="text-center mt-4">
-              <MDBBtn color="success" type="submit" onClick={handleSubmit}>
-                Register
-              </MDBBtn>
-            </div>
-          </form>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+        <div className="text-center mt-4">
+          <MDBBtn color="red darken-4" type="submit" onClick={handleSubmit}>
+            <strong>Register</strong>
+          </MDBBtn>
+          <MDBLink to="/login">Have an Account? Login</MDBLink>
+        </div>
+      </form>
+    </MDBCol>
   );
 };
 

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import React, { useContext } from "react";
+import { MDBLink, MDBCol, MDBBtn } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import axios from "axios";
 import { AuthContext } from "../../context/useAuthContext";
 import jwt from "jwt-decode";
 import { Redirect } from "react-router-dom";
 
-const LoginForm = (props) => {
+const LoginForm = () => {
   const auth = useContext(AuthContext);
 
   const [password, setPassword, resetPassword] = useInputState("");
@@ -53,43 +53,40 @@ const LoginForm = (props) => {
   };
 
   return (
-    <MDBContainer>
-      <MDBRow className="d-flex justify-content-center">
-        <MDBCol md="6">
-          <form>
-            <p className="h4 text-center mb-4">Sign in</p>
-            <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
-              Your email
-            </label>
-            <input
-              placeholder="youremail@domain.com"
-              value={email}
-              onChange={setEmail}
-              type="email"
-              id="defaultFormLoginEmailEx"
-              className="form-control"
-            />
-            <br />
-            <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
-              Your password
-            </label>
-            <input
-              type="password"
-              placeholder="password"
-              onChange={setPassword}
-              value={password}
-              id="defaultFormLoginPasswordEx"
-              className="form-control"
-            />
-            <div className="mt-4 d-flex justify-content-center">
-              <MDBBtn gradient="blue" onClick={handleLogin}>
-                Login
-              </MDBBtn>
-            </div>
-          </form>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+    <MDBCol size="12" md="6" lg="4" className="signup">
+      <form>
+        <p className="h4 text-center mb-4">Login</p>
+        <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
+          Your email
+        </label>
+        <input
+          placeholder="youremail@domain.com"
+          value={email}
+          onChange={setEmail}
+          type="email"
+          id="defaultFormLoginEmailEx"
+          className="form-control"
+        />
+        <br />
+        <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
+          Your password
+        </label>
+        <input
+          type="password"
+          placeholder="password"
+          onChange={setPassword}
+          value={password}
+          id="defaultFormLoginPasswordEx"
+          className="form-control"
+        />
+        <div className="mt-4 d-flex flex-column justify-content-center align-items-center">
+          <MDBLink to="/signup">Don't Have an Account? Sign Up</MDBLink>
+          <MDBBtn color="red darken-4" onClick={handleLogin}>
+            <strong>Login</strong>
+          </MDBBtn>
+        </div>
+      </form>
+    </MDBCol>
   );
 };
 
