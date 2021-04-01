@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { MDBRow, MDBCol } from "mdbreact";
+import { MDBCol } from "mdbreact";
 import PostInputForm from "../post/PostInputForm";
 import Post from "../post/Post";
 import useSWR from "swr";
 import { AuthContext } from "../../context/useAuthContext";
-import SectionHomeProfile from "./SectionHomeProfile";
+
 import NewsPage from "./NewsPage";
+import UserProfile from "../user profile/UserProfile";
 
 //TODO: Complete the route calls
 
@@ -13,11 +14,12 @@ const MainPage = () => {
   const auth = useContext(AuthContext);
   const { data, error } = useSWR(process.env.REACT_APP_BACKEND_URL + "/posts");
 
+  console.log(auth);
   let renderPosts;
 
   if (data) {
     renderPosts = data.map((item) => (
-      <div key={item.id} className="mb-4">
+      <div key={item.id} className="w-100">
         <Post
           data={{
             body: item.body,
@@ -46,22 +48,20 @@ const MainPage = () => {
 
   return (
     <div>
-      <MDBRow className="d-flex justify-content-between my-5">
-        <MDBCol size="2" className="my-5">
-          {auth.isLoggedIn && <SectionHomeProfile />}
+      <div className="d-flex flex-column flex-lg-row align-items-start justify-content-lg-between m-2 m-md-3 m-lg-5 p-md-3 p-1 p-lg-2 ">
+        <MDBCol size="12" lg="3">
+          {auth.isLoggedIn && <UserProfile user={auth.userInfo} />}
         </MDBCol>
 
-        <MDBCol size="4" className="">
-          <div className="">
-            {auth.isLoggedIn && <PostInputForm />}
-            {renderPosts}
-          </div>
+        <MDBCol size="12" lg="4">
+          {auth.isLoggedIn && <PostInputForm />}
+          {renderPosts}
         </MDBCol>
 
-        <MDBCol size="4">
+        <MDBCol size="12" lg="4">
           <NewsPage />
         </MDBCol>
-      </MDBRow>
+      </div>
     </div>
   );
 };

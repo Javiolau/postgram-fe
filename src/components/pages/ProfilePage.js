@@ -1,7 +1,7 @@
 import React from "react";
 import useSWR from "swr";
 import AllPost from "../post/AllPost";
-import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
+import { MDBCol, MDBContainer } from "mdbreact";
 import UserProfile from "../user profile/UserProfile";
 
 const ProfilePage = (props) => {
@@ -11,26 +11,28 @@ const ProfilePage = (props) => {
     `${process.env.REACT_APP_BACKEND_URL}/user/${userhandle}`
   );
 
+  if (data) console.log(data.user);
+
   if (!data || error) return <h4>Loading...</h4>;
 
   if (data && !error) {
     return (
-      <MDBContainer>
-        <MDBRow>
-          <MDBCol md="8" className="">
-            <div className="">
-              <div>
-                <UserProfile />
-                <h1>This is the Profile Page</h1>
-                <AllPost posts={data.posts} user={data.user} />
-              </div>
-            </div>
+      <div className="w-100 d-flex">
+        <MDBContainer className="d-flex flex-lg-row flex-column w-100">
+          <MDBCol size="12" lg="6" className="mt-5">
+            <UserProfile user={data.user} />
           </MDBCol>
-          <MDBCol md="4">
-            <h1>Active User on this section </h1>
+          <MDBCol
+            size="12"
+            lg="6"
+            className="d-flex justify-content-center  w-100 my-5"
+          >
+            <MDBCol size="12" className="">
+              <AllPost posts={data.posts} user={data.user} />
+            </MDBCol>
           </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+        </MDBContainer>
+      </div>
     );
   }
 };
