@@ -100,7 +100,7 @@ const Post = (props) => {
   }
 
   return (
-    <MDBCard className="postBG">
+    <MDBCard className="postBG mb-4">
       <div className="p-2 d-flex flex-row">
         <PostHeaderTop
           profilePicture={props.data.userImage}
