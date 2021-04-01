@@ -59,7 +59,7 @@ const Post = (props) => {
 
     async function update() {
       try {
-        const res = await axios.patch(
+        await axios.patch(
           process.env.REACT_APP_BACKEND_URL + "/update/" + props.data.postId,
           updateData,
           {
@@ -82,7 +82,7 @@ const Post = (props) => {
     e.preventDefault();
     async function deletePost() {
       try {
-        const res = await axios.delete(
+        await axios.delete(
           process.env.REACT_APP_BACKEND_URL + "/delete/" + props.data.postId,
           {
             headers: {
@@ -105,26 +105,26 @@ const Post = (props) => {
         <PostHeaderTop
           profilePicture={props.data.userImage}
           username={props.user.handle}
-          time={new Date(props.data.createdAt).toLocaleString()}
+          time={props.data.createdAt}
         />
         <div className="d-flex flex-column justify-content-between">
           {!isEdit && ownPost && (
             <MDBIcon
-              className="fas fa-cog iconPost"
+              icon="fas fa-cog iconPost"
               size="2x"
               onClick={toggleIsEdit}
             />
           )}
           {isEdit && ownPost && (
             <MDBIcon
-              className="fas fa-check iconPost "
+              icon="fas fa-check iconPost "
               size="2x"
               onClick={handleUpdate}
             />
           )}
           {ownPost && (
             <MDBIcon
-              className="fas fa-trash iconPost"
+              icon="fas fa-trash iconPost"
               size="2x"
               onClick={handleDelete}
             />
@@ -140,8 +140,6 @@ const Post = (props) => {
           <textarea
             value={body}
             onChange={updateBody}
-            margin="normal"
-            type="textarea"
             rows={10}
             className="w-100"
           />

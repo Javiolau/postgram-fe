@@ -48,7 +48,8 @@
 }
 
 .handlePostUserLink:hover {
-  color: #ff8f8f;
+  color: #f16363;
+  font-weight: bold;
 }
 
 .cardProfile > div {
@@ -60,10 +61,11 @@
 
 .newsHover:hover {
   cursor: pointer;
-  background: #cd9f9f;
+  background: #ef8d8d;
   padding: 20px;
   border-radius: 25px;
 }
+
 .shadow-box-example {
   height: 120px;
   width: 100%;
@@ -95,3 +97,10 @@
  margin-right: 20px;
  margin-bottom: 10px;
 }
+
+
+.signup {
+  padding: 2rem;
+  box-shadow: 0 0 5px 2px rgba(172, 40, 40, 0.3);
+}
+

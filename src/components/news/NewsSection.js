@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
@@ -8,25 +7,18 @@ import {
   MDBCardText,
   MDBCol,
 } from "mdbreact";
-import useSWR from "swr";
 import "../components.css";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 const NewsSection = (props) => {
-  const { data, error } = useSWR("/API");
-
-  const {
-    title,
-    link,
-    source,
-    description,
-    image,
-    published_at,
-    category,
-  } = props;
+  const { title, link, source, description, image, published_at } = props;
 
   function onClick() {
     return window.open(link, "_blank");
   }
+
+  dayjs.extend(relativeTime);
 
   return (
     <MDBCol className=" mb-4" onClick={onClick}>
@@ -68,11 +60,10 @@ const NewsSection = (props) => {
           </h6>
           <time className="p-0 m-0">
             <strong>Date: </strong>
-            {published_at ? published_at : new Date().toLocaleString()}
+            {published_at
+              ? dayjs().to(dayjs(published_at))
+              : new Date().toLocaleString()}
           </time>
-          <h6 className="">
-            <strong>Category: </strong> {category ? category : "Unknown"}
-          </h6>
         </div>
       </MDBCard>
     </MDBCol>
