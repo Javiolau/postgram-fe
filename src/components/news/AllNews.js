@@ -7,11 +7,10 @@ const AllNews = (props) => {
       key={event.url}
       title={event.title}
       link={event.url}
-      source={event.source}
+      source={event.source.name}
       description={event.description}
-      image={event.image}
-      published_at={event.published_at}
-      category={event.category}
+      image={event.urlToImage}
+      published_at={event.publishedAt}
     />
   ));
 };

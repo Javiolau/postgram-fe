@@ -3,14 +3,14 @@ git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/reaxster/postgram.git
+git remote add origin https://github.com/Javiolau/postgram-fe.git
 git push -u origin main
 
 #CLONE
-git clone https://github.com/reaxster/postgram.git
+git clone https://github.com/Javiolau/postgram-fe.git
 
 #PULL
-git pull https://github.com/reaxster/postgram.git
+git pull https://github.com/Javiolau/postgram-fe.git
 
 #PUSHING
 git status #Archivos no Salvados
