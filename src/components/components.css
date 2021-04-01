@@ -64,3 +64,34 @@
   padding: 20px;
   border-radius: 25px;
 }
+.shadow-box-example {
+  height: 120px;
+  width: 100%;
+  background-color: #64b5f6;
+}
+.imageSize {
+ height: 200px;
+ width:300px;
+ justify-content: center;
+ align-items: left;
+ display: block;  
+ margin: initial;
+ margin-right: 20px;
+ 
+}
+.profileCard {
+  background: #dddcdc;
+  /* background: #322626; */
+  padding: 20px;
+  border-radius: 25px;
+  width: 600px;
+  height: 250px;
+  justify-content: center;
+  text-align: left;
+  margin: 20px;
+  
+}
+.doingMargin {
+ margin-right: 20px;
+ margin-bottom: 10px;
+}
