@@ -4,8 +4,6 @@ import useSWR from "swr";
 //import xmlToJSON from "xml-js";
 //https://www.npmjs.com/package/xml-js
 const NewsPage = () => {
-
-
   // "https://news.google.com/rss/search?q=apple&hl=en-US&gl=US&ceid=US:en"
   const { data, error } = useSWR(process.env.REACT_APP_NEWS_API);
 
