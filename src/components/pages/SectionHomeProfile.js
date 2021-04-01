@@ -13,7 +13,7 @@ const SectionHomeProfile = () => {
 
 	return (
 		<MDBCard className='postBG'>
-			<MDBCardImage
+			<MDBCardImage 
 				className='img-fluid'
 				style={{ width: "5rem", height: "5rem", borderRadius: "20rem" }}
 				src={auth.userInfo.imageUrl}
