@@ -48,20 +48,24 @@ const MainPage = () => {
 
   return (
     <div>
-      <div className="d-flex flex-column flex-lg-row align-items-start justify-content-lg-between m-2 m-md-3 m-lg-5 p-md-3 p-1 p-lg-2 ">
-        <MDBCol size="12" lg="3">
-          {auth.isLoggedIn && <UserProfile user={auth.userInfo} />}
-        </MDBCol>
+      {!auth.isLoggedIn && <div>{<h1>AQUIIII COJONEEEE!!.....</h1>}</div>}
 
-        <MDBCol size="12" lg="4">
-          {auth.isLoggedIn && <PostInputForm />}
-          {renderPosts}
-        </MDBCol>
+      {auth.isLoggedIn && (
+        <div className="d-flex flex-column flex-lg-row align-items-start justify-content-lg-between m-2 m-md-3 m-lg-5 p-md-3 p-1 p-lg-2 ">
+          <MDBCol size="12" lg="4">
+            {<UserProfile user={auth.userInfo} />}
+          </MDBCol>
 
-        <MDBCol size="12" lg="4">
-          <NewsPage />
-        </MDBCol>
-      </div>
+          <MDBCol size="12" lg="4">
+            {auth.isLoggedIn && <PostInputForm />}
+            {renderPosts}
+          </MDBCol>
+
+          <MDBCol size="12" lg="4">
+            <NewsPage />
+          </MDBCol>
+        </div>
+      )}
     </div>
   );
 };
