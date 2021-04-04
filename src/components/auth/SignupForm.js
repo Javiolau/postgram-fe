@@ -5,6 +5,13 @@ import SignupInputField from "./SignupInputField";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import useToggle from "../../hooks/useToggle";
+import {
+  validateEmail,
+  validatePassword,
+  validatePasswordConfirm,
+  generalValidation,
+  validateHandle,
+} from "./FormValidationHelper";
 
 const FormPage = () => {
   //FORMS STATES
@@ -69,58 +76,67 @@ const FormPage = () => {
       <form>
         <p className="h4 text-center mb-4">Sign up</p>
 
-        <div>
-          <h6>{firstName}</h6>
-          <h6>{lastName}</h6>
-          <h6>{handle}</h6>
-          <h6>{email}</h6>
-          <h6>{password}</h6>
-          <h6>{confirmPassword}</h6>
-        </div>
-
         <SignupInputField
-          label="Enter your First Name"
-          placeholder="Name"
+          label="First Name"
+          placeholder="First Name"
+          name="firstname"
           value={firstName}
           onChange={updateFirstName}
+          isValid={generalValidation(firstName)}
+          msg="The first name should only contain [a-z A-Z]"
         />
 
         <SignupInputField
-          label="Enter your Last Name"
+          label="Last Name"
           placeholder="Last Name"
+          name="lastname"
           value={lastName}
           onChange={updateLastName}
+          isValid={generalValidation(lastName)}
+          msg="The last name should only contain [a-z A-Z]"
         />
 
         <SignupInputField
-          label="Enter your @handle"
+          label="@Handle"
           placeholder="@handle"
+          name="username"
           value={handle}
           onChange={updateHandle}
+          isValid={validateHandle(handle)}
+          msg="The handle should only contain alphanumerical characters"
         />
 
         <SignupInputField
-          label="Enter your Email"
+          label="Email"
           placeholder="youremail@domain.com"
           type="email"
+          name="email"
           value={email}
           onChange={updateEmail}
+          isValid={validateEmail(email)}
+          msg='The email should be in the following format  "example.domain.com" '
         />
 
         <SignupInputField
-          label="Enter your Password"
+          label="Password"
           placeholder="password"
           type="password"
+          name="password"
           value={password}
           onChange={updatePassword}
+          isValid={validatePassword(password)}
+          msg="Password does not meet the complexity requirements"
         />
 
         <SignupInputField
-          label="Confirm your Password"
-          placeholder="confirm password"
+          label="Confirm Password"
+          placeholder="Re-Password"
           type="password"
+          name="password"
           value={confirmPassword}
           onChange={updateConfirmPassword}
+          isValid={validatePasswordConfirm(password, confirmPassword)}
+          msg="The passwords does not match"
         />
 
         <div className="text-center mt-4">

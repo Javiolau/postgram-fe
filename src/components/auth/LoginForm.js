@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { MDBLink, MDBCol, MDBBtn } from "mdbreact";
+import React, { useContext, useState } from "react";
+import { MDBLink, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import axios from "axios";
 import { AuthContext } from "../../context/useAuthContext";
@@ -11,6 +11,7 @@ const LoginForm = () => {
 
   const [password, setPassword, resetPassword] = useInputState("");
   const [email, setEmail, resetEmail] = useInputState("");
+  const [error, setError] = useState(false);
 
   const login = async () => {
     try {
@@ -35,37 +36,54 @@ const LoginForm = () => {
               },
             }
           );
+          resetPassword();
+          resetEmail();
           const userInfo = res2.data.credentials;
           auth.login(user_id, token, userInfo);
         }
       }
     } catch (err) {
-      alert("ERROR ON LOGIN");
+      setError(true);
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     await login();
-    resetPassword();
-    resetEmail();
     return <Redirect to="/" />;
   };
+
+  function onChangePassword(e) {
+    setError(false);
+    setPassword(e);
+  }
+
+  function onChangeEmail(e) {
+    setError(false);
+    setEmail(e);
+  }
 
   return (
     <MDBCol size="12" md="6" lg="4" className="signup">
       <form>
         <p className="h4 text-center mb-4">Login</p>
+        {error && (
+          <div className="loginError">
+            <h6>
+              <MDBIcon icon="exclamation" className="mr-2 red-text" />
+              The information provided do not match our records
+            </h6>
+          </div>
+        )}
         <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
           Your email
         </label>
         <input
           placeholder="youremail@domain.com"
           value={email}
-          onChange={setEmail}
+          onChange={onChangeEmail}
           type="email"
-          id="defaultFormLoginEmailEx"
-          className="form-control"
+          className={error ? "form-control formInputError" : "form-control"}
         />
         <br />
         <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
@@ -74,10 +92,10 @@ const LoginForm = () => {
         <input
           type="password"
           placeholder="password"
-          onChange={setPassword}
+          onChange={onChangePassword}
           value={password}
           id="defaultFormLoginPasswordEx"
-          className="form-control"
+          className={error ? "form-control formInputError" : "form-control"}
         />
         <div className="mt-4 d-flex flex-column justify-content-center align-items-center">
           <MDBLink to="/signup">Don't Have an Account? Sign Up</MDBLink>
