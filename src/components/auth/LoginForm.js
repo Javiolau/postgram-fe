@@ -6,6 +6,9 @@ import { AuthContext } from "../../context/useAuthContext";
 import jwt from "jwt-decode";
 import { Redirect } from "react-router-dom";
 
+import { ReactComponent as ProfileIcon } from "../../icons/profile.svg";
+import { ReactComponent as Wave } from "../../icons/Wave.svg";
+
 const LoginForm = () => {
   const auth = useContext(AuthContext);
 
@@ -64,47 +67,46 @@ const LoginForm = () => {
   }
 
   return (
-    <MDBCol size="12" md="6" lg="4" className="signup">
-      <form>
-        <p className="h4 text-center mb-4">Login</p>
-        {error && (
-          <div className="loginError">
-            <h6>
-              <MDBIcon icon="exclamation" className="mr-2 red-text" />
-              The information provided do not match our records
-            </h6>
+
+    <>
+      <Wave />
+      <MDBCol
+        size="12"
+        md="6"
+        lg="4"
+        className="signup"
+        style={{ backgroundColor: "white", marginTop: "-10%" }}
+      >
+        <form>
+          <p className="h4 text-center mb-4">Login</p>
+          <ProfileIcon />
+          <input
+            placeholder="email"
+            value={email}
+            onChange={setEmail}
+            type="email"
+            id="defaultFormLoginEmailEx"
+            className="form-control"
+          />
+          <br />
+          <input
+            type="password"
+            placeholder="password"
+            onChange={setPassword}
+            value={password}
+            id="defaultFormLoginPasswordEx"
+            className="form-control"
+          />
+          <div className="mt-4 d-flex flex-column justify-content-center align-items-center">
+            <MDBLink to="/signup">Don't Have an Account? Sign Up</MDBLink>
+            <MDBBtn color="red darken-4" onClick={handleLogin}>
+              <strong>Login</strong>
+            </MDBBtn>
           </div>
-        )}
-        <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
-          Your email
-        </label>
-        <input
-          placeholder="youremail@domain.com"
-          value={email}
-          onChange={onChangeEmail}
-          type="email"
-          className={error ? "form-control formInputError" : "form-control"}
-        />
-        <br />
-        <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
-          Your password
-        </label>
-        <input
-          type="password"
-          placeholder="password"
-          onChange={onChangePassword}
-          value={password}
-          id="defaultFormLoginPasswordEx"
-          className={error ? "form-control formInputError" : "form-control"}
-        />
-        <div className="mt-4 d-flex flex-column justify-content-center align-items-center">
-          <MDBLink to="/signup">Don't Have an Account? Sign Up</MDBLink>
-          <MDBBtn color="red darken-4" onClick={handleLogin}>
-            <strong>Login</strong>
-          </MDBBtn>
-        </div>
-      </form>
-    </MDBCol>
+        </form>
+      </MDBCol>
+    </>
+
   );
 };
 

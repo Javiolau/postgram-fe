@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBCol, MDBBtn, MDBLink } from "mdbreact";
+import { MDBCol, MDBBtn, MDBLink, MDBRow } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import SignupInputField from "./SignupInputField";
 import axios from "axios";
@@ -12,6 +12,8 @@ import {
   generalValidation,
   validateHandle,
 } from "./FormValidationHelper";
+
+import { ReactComponent as Wave } from "../../icons/Wave.svg";
 
 const FormPage = () => {
   //FORMS STATES
@@ -72,81 +74,103 @@ const FormPage = () => {
   if (success) return <Redirect to="/login" />;
 
   return (
-    <MDBCol size="12" md="6" lg="4" className="signup my-5">
-      <form>
-        <p className="h4 text-center mb-4">Sign up</p>
 
-        <SignupInputField
-          label="First Name"
-          placeholder="First Name"
-          name="firstname"
-          value={firstName}
-          onChange={updateFirstName}
-          isValid={generalValidation(firstName)}
-          msg="The first name should only contain [a-z A-Z]"
-        />
+    <>
+      <Wave />
+      <MDBCol
+        size="12"
+        md="6"
+        lg="4"
+        className="signup my-5"
+        style={{ backgroundColor: "white" }}
+      >
+        <form>
+          <p className="h4 text-center mb-4">Sign up</p>
 
-        <SignupInputField
-          label="Last Name"
-          placeholder="Last Name"
-          name="lastname"
-          value={lastName}
-          onChange={updateLastName}
-          isValid={generalValidation(lastName)}
-          msg="The last name should only contain [a-z A-Z]"
-        />
+          <div>
+            <h6>{firstName}</h6>
+            <h6>{lastName}</h6>
+            <h6>{handle}</h6>
+            <h6>{email}</h6>
+            <h6>{password}</h6>
+            <h6>{confirmPassword}</h6>
+          </div>
 
-        <SignupInputField
-          label="@Handle"
-          placeholder="@handle"
-          name="username"
-          value={handle}
-          onChange={updateHandle}
-          isValid={validateHandle(handle)}
-          msg="The handle should only contain alphanumerical characters"
-        />
+          <MDBRow>
+            <MDBCol lg="6">
+              <input
+                id="defaultFormRegisterNameEx"
+                className="form-control"
+                placeholder="name"
+                value={firstName}
+                onChange={updateFirstName}
+              />
+            </MDBCol>
 
-        <SignupInputField
-          label="Email"
-          placeholder="youremail@domain.com"
-          type="email"
-          name="email"
-          value={email}
-          onChange={updateEmail}
-          isValid={validateEmail(email)}
-          msg='The email should be in the following format  "example.domain.com" '
-        />
+            <MDBCol lg="6">
+              <input
+                id="defaultFormRegisterNameEx"
+                className="form-control"
+                placeholder="last name"
+                value={lastName}
+                onChange={updateLastName}
+              />
 
-        <SignupInputField
-          label="Password"
-          placeholder="password"
-          type="password"
-          name="password"
-          value={password}
-          onChange={updatePassword}
-          isValid={validatePassword(password)}
-          msg="Password does not meet the complexity requirements"
-        />
+              <br />
+            </MDBCol>
+          </MDBRow>
 
-        <SignupInputField
-          label="Confirm Password"
-          placeholder="Re-Password"
-          type="password"
-          name="password"
-          value={confirmPassword}
-          onChange={updateConfirmPassword}
-          isValid={validatePasswordConfirm(password, confirmPassword)}
-          msg="The passwords does not match"
-        />
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="handle"
+            value={handle}
+            onChange={updateHandle}
+          />
 
-        <div className="text-center mt-4">
-          <MDBBtn color="red darken-4" type="submit" onClick={handleSubmit}>
-            <strong>Register</strong>
-          </MDBBtn>
-          <MDBLink to="/login">Have an Account? Login</MDBLink>
-        </div>
-      </form>
-    </MDBCol>
+          <br />
+
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="email"
+            type="email"
+            value={email}
+            onChange={updateEmail}
+          />
+
+          <br />
+
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={updatePassword}
+          />
+
+          <br />
+
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="confirm password"
+            type="password"
+            value={confirmPassword}
+            onChange={updateConfirmPassword}
+          />
+
+          <div className="text-center mt-4">
+            <MDBBtn color="red darken-4" type="submit" onClick={handleSubmit}>
+              <strong>Register</strong>
+            </MDBBtn>
+            <MDBLink to="/login">Have an Account? Login</MDBLink>
+          </div>
+        </form>
+      </MDBCol>
+    </>
+
   );
 };
 

@@ -44,10 +44,11 @@ function PostInputForm(props) {
   };
 
   return (
-    <div>
+    <div style={{ position: "sticky", top: 0, zIndex: 500 }}>
       {!isPostInputForm && (
         <div>
           <MDBBtn
+            style={{ borderRadius: "5px", marginTop: 0 }}
             className="maxWH mx-0 borders black-text mb-4"
             color="red"
             onClick={toogleisPostInputForm}

@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  min-height: 100vh;
+  /* min-height: 100vh; */ /* If you are using a navbar this is equivalent to 100vh + 56px */
   min-width: 100%;
   display: flex;
   justify-content: center;

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { MDBCol } from "mdbreact";
 import PostInputForm from "../post/PostInputForm";
 import Post from "../post/Post";
+import Home from "./Home";
 import useSWR from "swr";
 import { AuthContext } from "../../context/useAuthContext";
 
@@ -47,26 +48,28 @@ const MainPage = () => {
   }
 
   return (
-    <div>
-      {!auth.isLoggedIn && <div>{<h1>AQUIIII COJONEEEE!!.....</h1>}</div>}
+    <>
+      <div>{!auth.isLoggedIn && <Home />}</div>
 
-      {auth.isLoggedIn && (
-        <div className="d-flex flex-column flex-lg-row align-items-start justify-content-lg-between m-2 m-md-3 m-lg-5 p-md-3 p-1 p-lg-2 ">
-          <MDBCol size="12" lg="4">
-            {<UserProfile user={auth.userInfo} />}
-          </MDBCol>
+      <div style={{ backgroundColor: "#f6f5f7" }}>
+        {auth.isLoggedIn && (
+          <div className="d-flex flex-column flex-lg-row align-items-start justify-content-lg-between m-2 m-md-3 m-lg-5 p-md-3 p-1 p-lg-2 ">
+            <MDBCol size="12" lg="3" style={{ position: "sticky", top: 0 }}>
+              {<UserProfile user={auth.userInfo} />}
+            </MDBCol>
 
-          <MDBCol size="12" lg="4">
-            {auth.isLoggedIn && <PostInputForm />}
-            {renderPosts}
-          </MDBCol>
+            <MDBCol size="12" lg="6" className="posts">
+              {auth.isLoggedIn && <PostInputForm />}
+              {renderPosts}
+            </MDBCol>
 
-          <MDBCol size="12" lg="4">
-            <NewsPage />
-          </MDBCol>
-        </div>
-      )}
-    </div>
+            <MDBCol size="12" lg="3" style={{ position: "sticky", top: 0 }}>
+              <NewsPage />
+            </MDBCol>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 export default MainPage;

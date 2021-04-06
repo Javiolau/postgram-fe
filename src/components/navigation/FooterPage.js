@@ -1,22 +1,33 @@
 import React from "react";
-import { MDBContainer, MDBIcon, MDBFooter } from "mdbreact";
+import { MDBContainer, MDBIcon, MDBFooter, MDBRow, MDBCol } from "mdbreact";
 
 const FooterPage = () => {
   return (
-    <MDBFooter color="red darken-4" className="font-small pt-0 mt-0">
-      <div className="text-center py-3 ">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright:{" "}
-          <spam href="https://my.fiu.edu/">CEN4010 Group 5 Students</spam>
-          <div>
-            <a href="https://github.com/Javiolau/postgram-fe" target="_blank">
-              <MDBIcon fab icon="github" size="2x" /> Get the project
-              <strong> HERE! </strong>
-              <MDBIcon fab icon="github" size="2x" />
-            </a>
-          </div>
-        </MDBContainer>
-      </div>
+    <MDBFooter className="font-small pt-0 mt-0 grey-text ">
+      <MDBContainer fluid></MDBContainer>
+      <MDBRow className="d-flex bd-highlight mb-3 example-parent">
+        <div className="align-self-start" style={{ margin: "0 auto" }}>
+          <MDBCol size="12" lg="12">
+            <div className="text-center py-3 ">
+              <a href="https://github.com/Javiolau/postgram-fe" target="_blank">
+                Get the project{" "}
+                <MDBIcon
+                  fab
+                  icon="github"
+                  style={{ paddingLeft: "10px" }}
+                  size="2x"
+                />
+              </a>
+            </div>
+          </MDBCol>
+          <MDBCol size="12" lg="12">
+            <div className="text-center py-3 ">
+              &copy; {new Date().getFullYear()} Copyright:{" "}
+              <spam href="https://my.fiu.edu/">CEN4010 Group 5 Students</spam>
+            </div>
+          </MDBCol>
+        </div>
+      </MDBRow>
     </MDBFooter>
   );
 };
