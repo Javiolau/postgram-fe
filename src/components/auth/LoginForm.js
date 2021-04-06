@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { MDBLink, MDBCol, MDBBtn } from "mdbreact";
+import React, { useContext, useState } from "react";
+import { MDBLink, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import axios from "axios";
 import { AuthContext } from "../../context/useAuthContext";
@@ -14,6 +14,7 @@ const LoginForm = () => {
 
   const [password, setPassword, resetPassword] = useInputState("");
   const [email, setEmail, resetEmail] = useInputState("");
+  const [error, setError] = useState(false);
 
   const login = async () => {
     try {
@@ -38,24 +39,35 @@ const LoginForm = () => {
               },
             }
           );
+          resetPassword();
+          resetEmail();
           const userInfo = res2.data.credentials;
           auth.login(user_id, token, userInfo);
         }
       }
     } catch (err) {
-      alert("ERROR ON LOGIN");
+      setError(true);
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     await login();
-    resetPassword();
-    resetEmail();
     return <Redirect to="/" />;
   };
 
+  function onChangePassword(e) {
+    setError(false);
+    setPassword(e);
+  }
+
+  function onChangeEmail(e) {
+    setError(false);
+    setEmail(e);
+  }
+
   return (
+
     <>
       <Wave />
       <MDBCol
@@ -94,6 +106,7 @@ const LoginForm = () => {
         </form>
       </MDBCol>
     </>
+
   );
 };
 

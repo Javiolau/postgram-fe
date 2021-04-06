@@ -5,6 +5,13 @@ import SignupInputField from "./SignupInputField";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import useToggle from "../../hooks/useToggle";
+import {
+  validateEmail,
+  validatePassword,
+  validatePasswordConfirm,
+  generalValidation,
+  validateHandle,
+} from "./FormValidationHelper";
 
 import { ReactComponent as Wave } from "../../icons/Wave.svg";
 
@@ -67,6 +74,7 @@ const FormPage = () => {
   if (success) return <Redirect to="/login" />;
 
   return (
+
     <>
       <Wave />
       <MDBCol
@@ -162,6 +170,7 @@ const FormPage = () => {
         </form>
       </MDBCol>
     </>
+
   );
 };
 

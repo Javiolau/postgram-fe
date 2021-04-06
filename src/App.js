@@ -1,6 +1,5 @@
 import "./App.css";
 import { Switch, Route, Redirect } from "react-router-dom";
-import CreatePostPage from "./components/pages/CreatePostPage";
 import SignupPage from "./components/pages/SignupPage";
 import MainPage from "./components/pages/MainPage";
 import LoginPage from "./components/pages/LoginPage";
@@ -36,9 +35,6 @@ function App() {
     authRoutes = (
       <Switch>
         <div className="App">
-          <Route exact path="/createpost">
-            <CreatePostPage />
-          </Route>
           <Route exact path="/">
             <MainPage />
           </Route>

@@ -8,10 +8,12 @@ import {
   MDBNavbarToggler,
   MDBCollapse,
 } from "mdbreact";
+import Modal from "../utils/Modal";
 
 import { AuthContext } from "../../context/useAuthContext";
 
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useToggle from "../../hooks/useToggle";
 
 const Navbar = () => {
   const auth = useContext(AuthContext);
@@ -21,6 +23,8 @@ const Navbar = () => {
     setState(!state);
   };
 
+  const [showModal, toggeShowModal] = useToggle(true);
+
   const handleClick = () => {
     setState(false);
   };
@@ -28,12 +32,19 @@ const Navbar = () => {
   const handleLogout = () => {
     auth.logout();
     setState(false);
-    alert("You have successfully logged out");
-    return <Redirect to="/login" />;
+    toggeShowModal();
   };
 
   return (
     <MDBNavbar color="red darken-4" dark expand="md">
+      <Modal
+        show={showModal}
+        icon="fas fa-exclamation-circle"
+        title="Logout Successful"
+        message="You have successfully logged out."
+        redirect="/"
+        toggleShow={toggeShowModal}
+      />
       <MDBNavbarBrand>
         <Link to="/" onClick={handleClick}>
           <strong className="white-text">Home</strong>
