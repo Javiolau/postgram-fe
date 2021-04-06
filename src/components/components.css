@@ -1,4 +1,20 @@
-/***********GLOBAL STYLES ***********/
+**********GLOBAL STYLES ********** * {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
 
 .test {
   border: 1px red solid;
@@ -14,11 +30,19 @@
   border-radius: 25px;
 }
 
+.posts {
+  text-align: start;
+  padding: 0;
+}
+
 .postBG {
-  background: #dddcdc;
-  /* background: #322626; */
+  background: white;
   padding: 20px;
   border-radius: 25px;
+}
+
+.postFooter icon {
+  padding: 10px;
 }
 
 /*background: #424242;*/
@@ -35,11 +59,10 @@
 
 .iconPostActive {
   color: #f16363;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .iconPost:hover {
-  font-size: 30px;
   color: #ff5d5d;
 }
 
@@ -73,7 +96,8 @@
   border-radius: 25px;
 }
 .profileCard {
-  background: #dddcdc;
+  top: 0;
+  background: #fff;
   justify-content: center;
   text-align: left;
   border-radius: 25px;
@@ -81,7 +105,7 @@
 
 .signup {
   padding: 2rem;
-  box-shadow: 0 0 5px 2px rgba(172, 40, 40, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
 }
 
 .login {
@@ -90,4 +114,79 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.login .form-control,
+.signup .form-control {
+  background-color: #eee !important;
+  padding: 25px;
+}
+
+.login button,
+.signup button {
+  border-radius: 0.25rem;
+  background-color: #d11f3d !important;
+}
+
+.profileIcon {
+  width: 25%;
+  height: 25%;
+  margin-bottom: 25px;
+}
+
+.homePage {
+  width: 100vw;
+}
+
+.wave {
+  display: block;
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.hero {
+  z-index: 50;
+  position: absolute;
+  top: 20vh;
+  left: 17vw;
+}
+
+.heroButton {
+  background-color: #d11f3d !important;
+  border-radius: 0.4rem !important;
+  width: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  margin-top: 40px;
+  letter-spacing: 0.2rem;
+}
+
+.heroButton:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 12px, rgba(0, 0, 0, 0.22) 0px 10px 8px;
+}
+
+.HeroHeading {
+  /* text-align: right; */
+  margin-top: 25%;
+  font-family: "Roboto", sans-serif;
+  font-size: 6rem;
+  color: #727272;
+}
+
+.grey-text a {
+  color: #727272 !important;
+}
+
+@media (min-width: 800px) {
+  .modal-dialog {
+    max-width: 800px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .homeContainer {
+    max-width: 1200px;
+  }
 }

@@ -103,6 +103,8 @@ const Post = (props) => {
     <MDBCard className="postBG mb-4">
       <div className="p-2 d-flex flex-row">
         <PostHeaderTop
+          firstName={auth.userInfo.firstName}
+          lastName={auth.userInfo.lastName}
           profilePicture={props.data.userImage}
           username={props.user.handle}
           time={props.data.createdAt}
@@ -134,8 +136,15 @@ const Post = (props) => {
 
       <hr />
 
-      <MDBCardBody>
-        {!isEdit && <p className="black-text">{body}</p>}
+      <MDBCardBody style={{ padding: 0 }}>
+        {!isEdit && (
+          <p
+            className="black-text"
+            style={{ fontSize: "15px", lineHeight: "20px" }}
+          >
+            {body}
+          </p>
+        )}
         {isEdit && (
           <textarea
             value={body}
@@ -148,29 +157,28 @@ const Post = (props) => {
       </MDBCardBody>
 
       {auth.isLoggedIn && (
-        <div className="w-100 d-flex justify-content-center mb-3 ">
-          <div className="d-flex flex-row justify-content-around left  w-50">
-            <icon
-              className={
-                likes.isActive
-                  ? "fas fa-thumbs-up iconPostActive"
-                  : "far fa-thumbs-up iconPost"
-              }
-              onClick={handleLike}
-            >
-              {likes.like}
-            </icon>
-            <icon
-              className={
-                dislikes.isActive
-                  ? "fas fa-thumbs-down iconPostActive"
-                  : "far fa-thumbs-down iconPost"
-              }
-              onClick={handleDislike}
-            >
-              {dislikes.dislike}
-            </icon>
-          </div>
+        <div className="d-flex flex-row w-100 postFooter">
+          <icon
+            className={
+              likes.isActive
+                ? "fas fa-thumbs-up iconPostActive"
+                : "far fa-thumbs-up iconPost"
+            }
+            onClick={handleLike}
+          >
+            {likes.like}
+          </icon>
+          <icon
+            className={
+              dislikes.isActive
+                ? "fas fa-thumbs-down iconPostActive"
+                : "far fa-thumbs-down iconPost"
+            }
+            onClick={handleDislike}
+          >
+            {dislikes.dislike}
+          </icon>
+          <icon className="far fa-comment iconPost"></icon>
         </div>
       )}
     </MDBCard>

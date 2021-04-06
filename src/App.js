@@ -6,7 +6,7 @@ import MainPage from "./components/pages/MainPage";
 import LoginPage from "./components/pages/LoginPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import Navbar from "./components/navigation/Navbar";
-import FooterPage from "./components/navigation/FooterPage";
+import HomePageNav from "./components/homePageNav/HomepageNav";
 
 import { AuthContext } from "./context/useAuthContext";
 import { useAuthHook } from "./hooks/useAuthHook";
@@ -65,9 +65,9 @@ function App() {
       }}
     >
       <div className="mainBG">
-        <Navbar />
+        {!token && <HomePageNav />}
+        {token && <Navbar />}
         {authRoutes}
-        {!token && <FooterPage className="Footer" />}
       </div>
     </AuthContext.Provider>
   );

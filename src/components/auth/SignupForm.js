@@ -1,10 +1,12 @@
 import React from "react";
-import { MDBCol, MDBBtn, MDBLink } from "mdbreact";
+import { MDBCol, MDBBtn, MDBLink, MDBRow } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import SignupInputField from "./SignupInputField";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import useToggle from "../../hooks/useToggle";
+
+import { ReactComponent as Wave } from "../../icons/Wave.svg";
 
 const FormPage = () => {
   //FORMS STATES
@@ -65,72 +67,101 @@ const FormPage = () => {
   if (success) return <Redirect to="/login" />;
 
   return (
-    <MDBCol size="12" md="6" lg="4" className="signup my-5">
-      <form>
-        <p className="h4 text-center mb-4">Sign up</p>
+    <>
+      <Wave />
+      <MDBCol
+        size="12"
+        md="6"
+        lg="4"
+        className="signup my-5"
+        style={{ backgroundColor: "white" }}
+      >
+        <form>
+          <p className="h4 text-center mb-4">Sign up</p>
 
-        <div>
-          <h6>{firstName}</h6>
-          <h6>{lastName}</h6>
-          <h6>{handle}</h6>
-          <h6>{email}</h6>
-          <h6>{password}</h6>
-          <h6>{confirmPassword}</h6>
-        </div>
+          <div>
+            <h6>{firstName}</h6>
+            <h6>{lastName}</h6>
+            <h6>{handle}</h6>
+            <h6>{email}</h6>
+            <h6>{password}</h6>
+            <h6>{confirmPassword}</h6>
+          </div>
 
-        <SignupInputField
-          label="Enter your First Name"
-          placeholder="Name"
-          value={firstName}
-          onChange={updateFirstName}
-        />
+          <MDBRow>
+            <MDBCol lg="6">
+              <input
+                id="defaultFormRegisterNameEx"
+                className="form-control"
+                placeholder="name"
+                value={firstName}
+                onChange={updateFirstName}
+              />
+            </MDBCol>
 
-        <SignupInputField
-          label="Enter your Last Name"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={updateLastName}
-        />
+            <MDBCol lg="6">
+              <input
+                id="defaultFormRegisterNameEx"
+                className="form-control"
+                placeholder="last name"
+                value={lastName}
+                onChange={updateLastName}
+              />
 
-        <SignupInputField
-          label="Enter your @handle"
-          placeholder="@handle"
-          value={handle}
-          onChange={updateHandle}
-        />
+              <br />
+            </MDBCol>
+          </MDBRow>
 
-        <SignupInputField
-          label="Enter your Email"
-          placeholder="youremail@domain.com"
-          type="email"
-          value={email}
-          onChange={updateEmail}
-        />
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="handle"
+            value={handle}
+            onChange={updateHandle}
+          />
 
-        <SignupInputField
-          label="Enter your Password"
-          placeholder="password"
-          type="password"
-          value={password}
-          onChange={updatePassword}
-        />
+          <br />
 
-        <SignupInputField
-          label="Confirm your Password"
-          placeholder="confirm password"
-          type="password"
-          value={confirmPassword}
-          onChange={updateConfirmPassword}
-        />
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="email"
+            type="email"
+            value={email}
+            onChange={updateEmail}
+          />
 
-        <div className="text-center mt-4">
-          <MDBBtn color="red darken-4" type="submit" onClick={handleSubmit}>
-            <strong>Register</strong>
-          </MDBBtn>
-          <MDBLink to="/login">Have an Account? Login</MDBLink>
-        </div>
-      </form>
-    </MDBCol>
+          <br />
+
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={updatePassword}
+          />
+
+          <br />
+
+          <input
+            id="defaultFormRegisterNameEx"
+            className="form-control"
+            placeholder="confirm password"
+            type="password"
+            value={confirmPassword}
+            onChange={updateConfirmPassword}
+          />
+
+          <div className="text-center mt-4">
+            <MDBBtn color="red darken-4" type="submit" onClick={handleSubmit}>
+              <strong>Register</strong>
+            </MDBBtn>
+            <MDBLink to="/login">Have an Account? Login</MDBLink>
+          </div>
+        </form>
+      </MDBCol>
+    </>
   );
 };
 
