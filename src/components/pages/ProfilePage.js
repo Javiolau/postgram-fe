@@ -3,6 +3,7 @@ import useSWR from "swr";
 import AllPost from "../post/AllPost";
 import { MDBCol, MDBContainer } from "mdbreact";
 import UserProfile from "../user profile/UserProfile";
+import Loading from "../utils/Loading";
 
 const ProfilePage = (props) => {
   const userhandle = props.match.params.handle;
@@ -11,9 +12,7 @@ const ProfilePage = (props) => {
     `${process.env.REACT_APP_BACKEND_URL}/user/${userhandle}`
   );
 
-  if (data) console.log(data.user);
-
-  if (!data || error) return <h4>Loading...</h4>;
+  if (!data || error) return <Loading />;
 
   if (data && !error) {
     return (

@@ -1,8 +1,9 @@
 import React from "react";
 import NewsSection from "./NewsSection";
+import Loading from "../utils/Loading";
 
 const AllNews = (props) => {
-  if (!props) return <h1>Loading...</h1>;
+  if (!props) return <Loading />;
   if (!props.data) return <NewsSection />;
 
   return props.data.map((event) => (
