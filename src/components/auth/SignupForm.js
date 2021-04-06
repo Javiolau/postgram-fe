@@ -1,17 +1,9 @@
 import React from "react";
 import { MDBCol, MDBBtn, MDBLink, MDBRow } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
-import SignupInputField from "./SignupInputField";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import useToggle from "../../hooks/useToggle";
-import {
-  validateEmail,
-  validatePassword,
-  validatePasswordConfirm,
-  generalValidation,
-  validateHandle,
-} from "./FormValidationHelper";
 
 import { ReactComponent as Wave } from "../../icons/Wave.svg";
 
@@ -74,7 +66,6 @@ const FormPage = () => {
   if (success) return <Redirect to="/login" />;
 
   return (
-
     <>
       <Wave />
       <MDBCol
@@ -86,15 +77,6 @@ const FormPage = () => {
       >
         <form>
           <p className="h4 text-center mb-4">Sign up</p>
-
-          <div>
-            <h6>{firstName}</h6>
-            <h6>{lastName}</h6>
-            <h6>{handle}</h6>
-            <h6>{email}</h6>
-            <h6>{password}</h6>
-            <h6>{confirmPassword}</h6>
-          </div>
 
           <MDBRow>
             <MDBCol lg="6">
@@ -170,7 +152,6 @@ const FormPage = () => {
         </form>
       </MDBCol>
     </>
-
   );
 };
 

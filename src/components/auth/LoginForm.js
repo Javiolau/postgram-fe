@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { MDBLink, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
+import React, { useContext } from "react";
+import { MDBLink, MDBCol, MDBBtn } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import axios from "axios";
 import { AuthContext } from "../../context/useAuthContext";
@@ -8,67 +8,63 @@ import { Redirect } from "react-router-dom";
 
 import { ReactComponent as ProfileIcon } from "../../icons/profile.svg";
 import { ReactComponent as Wave } from "../../icons/Wave.svg";
+import useToggle from "../../hooks/useToggle";
+import Modal from "../utils/Modal";
 
 const LoginForm = () => {
   const auth = useContext(AuthContext);
 
   const [password, setPassword, resetPassword] = useInputState("");
   const [email, setEmail, resetEmail] = useInputState("");
-  const [error, setError] = useState(false);
+  const [errorModal, toggleErrorModal] = useToggle(false);
 
-  const login = async () => {
-    try {
-      const res = await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+  const handleLogin = (e) => {
+    e.preventDefault();
 
-      if (res.status === 200) {
+    (async () => {
+      try {
+        const res = await axios.post(
+          process.env.REACT_APP_BACKEND_URL + "/login",
+          {
+            email: email,
+            password: password,
+          }
+        );
+
         const token = res.data.token;
         const { user_id } = jwt(res.data.token);
 
-        if (token) {
-          const res2 = await axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/user`,
-            {
-              headers: {
-                Authorization: "Bearer " + token, //the token is a variable which holds the token
-              },
-            }
-          );
-          resetPassword();
-          resetEmail();
-          const userInfo = res2.data.credentials;
-          auth.login(user_id, token, userInfo);
-        }
-      }
-    } catch (err) {
-      setError(true);
-    }
-  };
+        const res2 = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/user`,
+          {
+            headers: {
+              Authorization: "Bearer " + token, //the token is a variable which holds the token
+            },
+          }
+        );
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    await login();
+        const userInfo = res2.data.credentials;
+        auth.login(user_id, token, userInfo);
+      } catch (err) {
+        toggleErrorModal();
+      }
+    })();
+
+    resetPassword();
+    resetEmail();
     return <Redirect to="/" />;
   };
 
-  function onChangePassword(e) {
-    setError(false);
-    setPassword(e);
-  }
-
-  function onChangeEmail(e) {
-    setError(false);
-    setEmail(e);
-  }
-
   return (
-
     <>
+      <Modal
+        show={errorModal}
+        icon="fas fa-exclamation-circle"
+        title="Login Error"
+        message="An error has occurred when trying to login. Please check your credentials and try again"
+        toggleShow={toggleErrorModal}
+      />
+
       <Wave />
       <MDBCol
         size="12"
@@ -106,7 +102,6 @@ const LoginForm = () => {
         </form>
       </MDBCol>
     </>
-
   );
 };
 

@@ -84,7 +84,7 @@ body {
 
 .newsHover:hover {
   cursor: pointer;
-  background: #ef8d8d;
+  background: #f1ebeb;
   padding: 20px;
   border-radius: 25px;
 }
@@ -208,5 +208,4 @@ body {
   box-shadow: 0 0 10px 2px rgb(255, 205, 147) !important;
   border-radius: 5px;
   padding: 5px;
-
 }

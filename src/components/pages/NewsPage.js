@@ -1,15 +1,20 @@
 import React from "react";
 import AllNews from "../news/AllNews";
 import useSWR from "swr";
+import Loading from "../utils/Loading";
 
 const NewsPage = () => {
   const { data, error } = useSWR(process.env.REACT_APP_NEWS_API);
 
-  if (!data && !error) return <h1>Loading...</h1>;
+  if (!data && !error) return <Loading />;
 
-  if (error) return <h1>An Error has Occureed...!!!</h1>;
+  if (error)
+    return (
+      <div>
+        <h1>An Error has Occureed...!!!</h1> <Loading />
+      </div>
+    );
 
-  console.log(data.data);
   return (
     <div>
       <AllNews data={data.articles} />

@@ -3,20 +3,23 @@ import { MDBBtn } from "mdbreact";
 import useInputState from "../../hooks/useInputState";
 import "../components.css";
 import useToggle from "../../hooks/useToggle";
-import { getDateMMDDYYYY } from "../../util/DateUtil";
+
 import { AuthContext } from "../../context/useAuthContext";
 import PostHeaderTop from "./PostHeaderTop";
 import axios from "axios";
 import Reload from "../../util/Reload";
+import CheckContext from "../utils/CheckContext";
 
 function PostInputForm(props) {
   const auth = useContext(AuthContext);
-  const { imageUrl, handle } = auth.userInfo;
-
   const [postData, createPostData, resetPostData] = useInputState("");
   const [isPostInputForm, toogleisPostInputForm] = useToggle(false);
 
-  const time = getDateMMDDYYYY();
+  if (!CheckContext(auth)) return <h1>Loading Nav....</h1>;
+
+  const { imageUrl, handle } = auth.userInfo;
+
+  const time = new Date().toUTCString();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

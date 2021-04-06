@@ -6,6 +6,7 @@ function AllPosts(props) {
 
   return posts.map((item) => (
     <Post
+      key={item.postId}
       data={{
         body: item.body,
         dislikeCount: item.dislikeCount,

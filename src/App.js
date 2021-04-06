@@ -6,7 +6,8 @@ import LoginPage from "./components/pages/LoginPage";
 import ProfilePage from "./components/pages/ProfilePage";
 import Navbar from "./components/navigation/Navbar";
 import HomePageNav from "./components/homePageNav/HomepageNav";
-
+import AboutPage from "./components/pages/About";
+import ContactPage from "./components/pages/ContactPage";
 import { AuthContext } from "./context/useAuthContext";
 import { useAuthHook } from "./hooks/useAuthHook";
 
@@ -14,8 +15,8 @@ function App() {
   const { token, login, logout, userId, userInfo } = useAuthHook();
 
   let authRoutes = (
-    <Switch>
-      <div className="App">
+    <div className="App">
+      <Switch>
         <Route exact path="/signup">
           <SignupPage />
         </Route>
@@ -24,17 +25,24 @@ function App() {
           <LoginPage />
         </Route>
 
+        <Route exact path="/about">
+          <AboutPage />
+        </Route>
+        <Route exact path="/contact">
+          <ContactPage />
+        </Route>
+
         <Route exact path="/">
           <MainPage />
         </Route>
-      </div>
-    </Switch>
+      </Switch>
+    </div>
   );
 
   if (!!token)
     authRoutes = (
-      <Switch>
-        <div className="App">
+      <div className="App">
+        <Switch>
           <Route exact path="/">
             <MainPage />
           </Route>
@@ -45,8 +53,8 @@ function App() {
           <Route exact path="/login">
             <Redirect to="/" />
           </Route>
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     );
 
   return (

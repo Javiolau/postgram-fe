@@ -9,7 +9,11 @@ const FooterPage = () => {
         <div className="align-self-start" style={{ margin: "0 auto" }}>
           <MDBCol size="12" lg="12">
             <div className="text-center py-3 ">
-              <a href="https://github.com/Javiolau/postgram-fe" target="_blank">
+              <a
+                href="https://github.com/Javiolau/postgram-fe"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Get the project{" "}
                 <MDBIcon
                   fab
@@ -23,7 +27,7 @@ const FooterPage = () => {
           <MDBCol size="12" lg="12">
             <div className="text-center py-3 ">
               &copy; {new Date().getFullYear()} Copyright:{" "}
-              <spam href="https://my.fiu.edu/">CEN4010 Group 5 Students</spam>
+              <span href="https://my.fiu.edu/">CEN4010 Group 5 Students</span>
             </div>
           </MDBCol>
         </div>

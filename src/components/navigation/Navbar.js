@@ -14,6 +14,8 @@ import { AuthContext } from "../../context/useAuthContext";
 
 import { Link } from "react-router-dom";
 import useToggle from "../../hooks/useToggle";
+import CheckContext from "../utils/CheckContext";
+import Reload from "../../util/Reload";
 
 const Navbar = () => {
   const auth = useContext(AuthContext);
@@ -23,17 +25,24 @@ const Navbar = () => {
     setState(!state);
   };
 
-  const [showModal, toggeShowModal] = useToggle(true);
+  const [showModal, toggeShowModal] = useToggle(false);
 
   const handleClick = () => {
     setState(false);
   };
 
   const handleLogout = () => {
-    auth.logout();
-    setState(false);
     toggeShowModal();
+    setState(false);
+
+    setTimeout(()=> {
+      auth.logout()
+      Reload(true)
+    }, 2500)
   };
+
+  if(!CheckContext(auth))
+    return <h1>Loading Nav....</h1>
 
   return (
     <MDBNavbar color="red darken-4" dark expand="md">
@@ -92,7 +101,7 @@ const Navbar = () => {
             </MDBNavItem>
           )}
 
-          {auth.isLoggedIn && (
+          {auth.isLoggedIn && auth.userInfo.handle && auth.userInfo.firstName &&(
             <MDBNavItem>
               <MDBNavLink
                 className="white-text"

@@ -103,8 +103,6 @@ const Post = (props) => {
     <MDBCard className="postBG mb-4">
       <div className="p-2 d-flex flex-row">
         <PostHeaderTop
-          firstName={auth.userInfo.firstName}
-          lastName={auth.userInfo.lastName}
           profilePicture={props.data.userImage}
           username={props.user.handle}
           time={props.data.createdAt}
@@ -158,27 +156,27 @@ const Post = (props) => {
 
       {auth.isLoggedIn && (
         <div className="d-flex flex-row w-100 postFooter">
-          <icon
-            className={
+          <MDBIcon
+            icon={
               likes.isActive
-                ? "fas fa-thumbs-up iconPostActive"
-                : "far fa-thumbs-up iconPost"
+                ? "fas fa-thumbs-up iconPostActive mr-2 "
+                : "far fa-thumbs-up iconPost mr-2 "
             }
             onClick={handleLike}
           >
             {likes.like}
-          </icon>
-          <icon
-            className={
+          </MDBIcon>
+          <MDBIcon
+            icon={
               dislikes.isActive
-                ? "fas fa-thumbs-down iconPostActive"
-                : "far fa-thumbs-down iconPost"
+                ? "fas fa-thumbs-down iconPostActive mx-2 "
+                : "far fa-thumbs-down iconPost mx-2 "
             }
             onClick={handleDislike}
           >
             {dislikes.dislike}
-          </icon>
-          <icon className="far fa-comment iconPost"></icon>
+          </MDBIcon>
+          <MDBIcon icon="far fa-comment iconPost mx-2 " />
         </div>
       )}
     </MDBCard>
