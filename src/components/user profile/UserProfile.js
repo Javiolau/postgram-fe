@@ -1,7 +1,49 @@
-import React from "react";
-import { MDBCardImage, MDBIcon, MDBBtn, MDBCardTitle } from "mdbreact";
+import React, { useState } from "react";
+import {
+  MDBCardImage,
+  MDBIcon,
+  MDBBtn,
+  MDBCardTitle,
+  MDBInput,
+} from "mdbreact";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import useInputState from "../../hooks/useInputState";
+import useToggle from "../../hooks/useToggle";
+import Loading from "../utils/Loading";
+
+import FormData from "form-data"; //For Image Loading
+
+/*npm install --save form-data
+import FormData from 'form-data'
+
+const config = {
+  headers: {
+    'accept': 'application/json',
+    'Accept-Language': 'en-US,en;q=0.8',
+    'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+  }
+}
+
+ const config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        }
+
+let data = new FormData();
+
+data.append('file', file, file.fileName);
+//formData.append(name, value, filename);
+
+https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
+
+axios.post(URL, data, {
+  headers: {
+    'accept': 'application/json',
+    'Accept-Language': 'en-US,en;q=0.8',
+    'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+  }
+})
+*/
 
 const UserProfile = (props) => {
   dayjs.extend(relativeTime);
@@ -17,10 +59,38 @@ const UserProfile = (props) => {
     website,
   } = props.user;
 
+  const [profilePicture, updateProfilePicture] = useState();
+  const [websiteURL, updateWebsiteURL] = useInputState("https://facebook.com");
+  const [address, updateAddress] = useInputState(location);
+  const [description, updateDescription] = useInputState(bio);
+  const [isEditing, toggleIsEditing] = useToggle(false);
+  const [isSubmitting, updateIsSubmitting] = useState(false);
+
+  function handleSave(e) {
+    e.preventDefault();
+    updateIsSubmitting(true);
+
+    toggleIsEditing();
+    updateIsSubmitting(false);
+  }
+  if (isSubmitting) return <Loading />;
+
   return (
     <div className="profileCard d-flex flex-column align-items-center p-3">
       <div className="w-100 d-flex flex-column align-items-center justify-content-center">
-        <MDBCardImage hover className=" imageSize" src={imageUrl} alt="man" />
+        {!isEditing && (
+          <MDBCardImage hover className=" imageSize" src={imageUrl} alt="man" />
+        )}
+        {isEditing && (
+          <MDBInput
+            value={profilePicture}
+            onChange={updateProfilePicture}
+            icon="camera"
+            containerClass="m-0 mt-2"
+            iconSize="1x"
+            type="file"
+          />
+        )}
         <br />
         <div style={{ textAlign: "center" }}>
           <MDBCardTitle>
@@ -44,12 +114,46 @@ const UserProfile = (props) => {
         </p>
 
         <p className="red-text my-0">
-          <MDBIcon icon="globe-americas" size="lg" className="red-text mr-3" />
-          <a href={website ? website : ""}>{website ? "Website" : "N/A"}</a>
+          {!isEditing && (
+            <MDBIcon
+              icon="globe-americas"
+              size="lg"
+              className="red-text mr-3"
+            />
+          )}
+          {isEditing && (
+            <MDBInput
+              value={websiteURL}
+              onChange={updateWebsiteURL}
+              label="Enter your website link"
+              icon="globe-americas"
+              containerClass="m-0 mt-2"
+              iconSize="1x"
+            />
+          )}
+          {!isEditing && (
+            <a href={website ? website : ""}>{website ? "Website" : "N/A"}</a>
+          )}
         </p>
         <p className="red-text my-0">
-          <MDBIcon icon="map-marker-alt" size="lg" className="red-text mr-3" />
-          {location ? location : "N/A"}
+          {!isEditing && (
+            <MDBIcon
+              icon="map-marker-alt"
+              size="lg"
+              className="red-text mr-3"
+            />
+          )}
+          {!isEditing && (location ? location : "N/A")}
+          {isEditing && (
+            <MDBInput
+              value={address}
+              onChange={updateAddress}
+              label="Enter your address"
+              icon="map-marker-alt"
+              containerClass="m-0 mt-2"
+              iconSize="1x"
+            />
+          )}
         </p>
         <p className="red-text my-0">
           <MDBIcon
@@ -64,20 +168,49 @@ const UserProfile = (props) => {
         <div>
           <hr />
           <p className="red-text my-0">
-            {bio
-              ? bio.length > 100
-                ? bio.substr(0, 100)
-                : bio
-              : "No description to show sdad asd asd asd asd asdsd sd asd asd ad s s"}
+            {!isEditing && (
+              <MDBIcon icon="hand-peace" size="lg" className="red-text mr-3" />
+            )}
+            {!isEditing &&
+              (bio
+                ? bio.length > 100
+                  ? bio.substr(0, 100)
+                  : bio
+                : "No description to show sdad asd asd asd asd asdsd sd asd asd ad s s")}
+            {isEditing && (
+              <MDBInput
+                value={description}
+                onChange={updateDescription}
+                label="Enter your bio's info"
+                type="textarea"
+                icon="hand-peace"
+                containerClass="m-0 mt-2"
+              />
+            )}
           </p>
         </div>
       </div>
 
       <div className="w-100">
         <hr />
-        <MDBBtn className="maxWH mx-0 borders text-center mb-4" color="red">
-          Edit Profile
-        </MDBBtn>
+        {!isEditing && (
+          <MDBBtn
+            className="maxWH mx-0 borders text-center mb-4"
+            color="red"
+            onClick={toggleIsEditing}
+          >
+            Edit Profile
+          </MDBBtn>
+        )}
+        {isEditing && (
+          <MDBBtn
+            className="maxWH mx-0 borders text-center mb-4"
+            color="success"
+            onClick={handleSave}
+          >
+            Save Changes
+          </MDBBtn>
+        )}
       </div>
     </div>
   );
